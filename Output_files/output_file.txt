@@ -1,0 +1,3 @@
+Operation 1: 10.0 add 5.0 = 15.0
+Operation 2: 8.0 divide 0.0 = Error: Division by zero is not allowed.
+Operation 3: 12.0 multiply 3.0 = 36.0
