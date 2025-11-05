@@ -45,7 +45,7 @@ def search_and_open_first_link_with_captcha_handling(query, headless=False):
             first_result = page.locator("h3").first
             first_result.click()
             print("➡️ Opened first search result.")
-            page.screenshot(path="first_result_page.png", full_page=True)
+            page.screenshot(path="T20_Score.png", full_page=True)
         except Exception as e:
             print("❌ Failed to click the first result:", e)
 
