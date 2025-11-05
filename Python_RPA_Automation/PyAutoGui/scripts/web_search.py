@@ -19,4 +19,8 @@ time.sleep(4)  # Wait for results to load
 pyautogui.moveTo(419, 239, duration=0.5)  # Example coordinates
 pyautogui.click()
 
+pyautogui.screenshot(r'D:\Gen AI Project\venv\Python_Automation\web_search_result.png')
+
 print("✅ Search completed and first result clicked!")
+
+

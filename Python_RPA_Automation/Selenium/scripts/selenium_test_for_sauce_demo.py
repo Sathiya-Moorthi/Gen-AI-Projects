@@ -232,13 +232,29 @@ def main():
     print("Starting Sauce Demo Test Suite...")
     print("=" * 50)
     
-    # Initialize Chrome driver with options to disable save password popup
+    # Initialize Chrome driver with comprehensive options to disable save password popup
     options = webdriver.ChromeOptions()
-    options.add_experimental_option('prefs', {
+    
+    # Disable password manager and autofill
+    prefs = {
         'credentials_enable_service': False,
-        'profile.password_manager_enabled': False
-    })
+        'profile.password_manager_enabled': False,
+        'profile.default_content_setting_values.notifications': 2,
+        'autofill.profile_enabled': False,
+        'profile.password_manager_leak_detection': False
+    }
+    options.add_experimental_option('prefs', prefs)
+    
+    # Additional arguments to suppress popups
     options.add_argument('--disable-blink-features=AutomationControlled')
+    options.add_argument('--disable-save-password-bubble')
+    options.add_argument('--disable-features=PasswordManager')
+    options.add_argument('--no-first-run')
+    options.add_argument('--no-default-browser-check')
+    
+    # Exclude automation switches
+    options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
+    options.add_experimental_option('useAutomationExtension', False)
     
     driver = webdriver.Chrome(options=options)
     driver.maximize_window()
