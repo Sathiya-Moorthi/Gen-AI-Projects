@@ -73,8 +73,8 @@ def write_outputs(file_path, results):
 
 
 def main():
-    input_file = r"D:\Gen AI Projects\venv\Python_scripts\Input_files\input_file.txt"
-    output_file = r"D:\Gen AI Projects\venv\Python_scripts\Output_files\output_file.txt"
+    input_file = r"D:\Gen AI Project\venv\Python_scripts\input files\input_file.txt"
+    output_file = r"D:\Gen AI Project\venv\Python_scripts\output files\output_file.txt"
 
     try:
         input_sets = read_inputs(input_file)

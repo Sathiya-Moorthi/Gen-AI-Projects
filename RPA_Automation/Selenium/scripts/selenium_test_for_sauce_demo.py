@@ -10,13 +10,13 @@ import os
 from datetime import datetime
 
 # Create screenshots directory if it doesn't exist
-if not os.path.exists('screenshots'):
-    os.makedirs('screenshots')
+if not os.path.exists('D:\Gen AI Project\venv\RPA_Automation\Selenium\output files\screenshots'):
+    os.makedirs('D:\Gen AI Project\venv\RPA_Automation\Selenium\output files\screenshots')
 
 def take_screenshot(driver, test_name):
     """Take a screenshot and save it with timestamp"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"screenshots/{test_name}_{timestamp}.png"
+    filename = f"D:\Gen AI Project\venv\RPA_Automation\Selenium\output files\screenshots\{test_name}_{timestamp}.png"
     driver.save_screenshot(filename)
     print(f"Screenshot saved: {filename}")
 

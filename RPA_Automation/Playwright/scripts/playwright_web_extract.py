@@ -58,5 +58,5 @@ def extract_web_content(url, output_path):
 # Example usage
 if __name__ == "__main__":
     url = "https://www.bbc.com/news"
-    output_path = r"D:\Gen AI Project\venv\Python_Automation\Playwright\bbc_content.txt"
+    output_path = r"D:\Gen AI Project\venv\RPA_Automation\Playwright\output files\text_files\bbc_content.txt"
     extract_web_content(url, output_path)

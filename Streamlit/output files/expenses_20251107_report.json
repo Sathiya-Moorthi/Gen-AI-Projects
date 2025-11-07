@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Coffee",
+    "amount": 50.0,
+    "category": "\ud83c\udf54 Food & Dining",
+    "date": "2025-11-07",
+    "timestamp": "2025-11-07T06:05:02.593239"
+  },
+  {
+    "name": "Wifi",
+    "amount": 707.0,
+    "category": "\ud83d\udcb3 Bills & Utilities",
+    "date": "2025-11-07",
+    "timestamp": "2025-11-07T06:05:27.391947"
+  },
+  {
+    "name": "Rent",
+    "amount": 8000.0,
+    "category": "\ud83c\udfe0 Housing",
+    "date": "2025-11-07",
+    "timestamp": "2025-11-07T06:06:45.249573"
+  }
+]

@@ -79,7 +79,7 @@ def extract_web_content(url, output_path, screenshot_path):
 # Example usage
 if __name__ == "__main__":
     url = "https://www.bbc.com/news"  # Change this to any webpage
-    output_path = r"D:\Gen AI Project\venv\Python_Automation\Playwright\bbc_full_extract.txt"
-    screenshot_path = r"D:\Gen AI Project\venv\Python_Automation\Playwright\bbc_full_page.png"
+    output_path = r"D:\Gen AI Project\venv\RPA_Automation\Playwright\output files\text_files\bbc_full_extract.txt"
+    screenshot_path = r"D:\Gen AI Project\venv\RPA_Automation\Playwright\output files\screenshots\bbc_full_page.png"
 
     extract_web_content(url, output_path, screenshot_path)
