@@ -1,0 +1,22 @@
+{
+  "exact_duplicates": [
+    [
+      "Resume.pdf",
+      "Sathiya Moorthi-1.pdf"
+    ]
+  ],
+  "similar_pairs": [
+    {
+      "file1": "Resume.pdf",
+      "file2": "Sathiya Moorthi-1.pdf",
+      "similarity": 100.0
+    }
+  ],
+  "summary": {
+    "total_files": 2,
+    "unique_files": 1,
+    "exact_duplicate_groups": 1,
+    "similar_pairs_found": 1,
+    "similarity_threshold": 100.0
+  }
+}
