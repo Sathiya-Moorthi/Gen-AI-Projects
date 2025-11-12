@@ -1,0 +1,34 @@
+{
+  "farmers": {
+    "1": {
+      "name": "Sathiya Moorthi",
+      "age": 25,
+      "experience_level": "young and enthusiastic",
+      "coconut_type": "tender coconuts",
+      "id": 1,
+      "registration_date": "2025-11-12T07:34:41.398890",
+      "last_updated": "2025-11-12T07:34:41.398890"
+    },
+    "2": {
+      "name": "Saravanabavan",
+      "age": 64,
+      "experience_level": "veteran and master",
+      "coconut_type": "golden harvest coconuts",
+      "id": 2,
+      "registration_date": "2025-11-12T07:36:20.132137",
+      "last_updated": "2025-11-12T07:40:10.961049"
+    },
+    "3": {
+      "name": "Divakar",
+      "age": 26,
+      "experience_level": "experienced and skilled",
+      "coconut_type": "premium coconuts",
+      "id": 3,
+      "registration_date": "2025-11-12T07:37:56.216575",
+      "last_updated": "2025-11-12T07:37:56.216575"
+    }
+  },
+  "next_id": 4,
+  "total_registrations": 3,
+  "last_updated": "2025-11-12T07:40:10.961049"
+}
