@@ -1,0 +1,44 @@
+{
+  "prompt": "Epic fantasy battle at Winterfell during nightfall. The scene begins with anxious defenders in Winterfell's courtyard: Sam, Arya, Sansa, Tyrion, and Unsullied soldiers readying for battle. Giant dragons soar overhead, torchlight flickers against heavy snow, and the Dothraki army stands by with flaming swords. Outside the fortress, an endless horde of undead (wights and White Walkers) gathers, led by the Night King. Fierce fighting unfolds across snowy ramparts, catapults launch fire through the storm, dragons unleash streams of flame against the undead, and key characters fight desperately as chaos engulfs both field and castle. Mood is tense, dark, heroic, and cinematic.",
+  "style": "cinematic, high-fantasy, dark epic, high detail",
+  "key_characters": [
+    "Jon Snow",
+    "Daenerys Targaryen",
+    "Arya Stark",
+    "Sansa Stark",
+    "Tyrion Lannister",
+    "Samwell Tarly",
+    "Night King",
+    "Bran Stark",
+    "Theon Greyjoy",
+    "Brienne of Tarth",
+    "Unsullied",
+    "Dothraki",
+    "Dragons"
+  ],
+  "scenes": [
+    "Winterfell courtyard preparations at night",
+    "Dothraki charge with flaming swords",
+    "Undead horde surges from darkness",
+    "Dragons flying and breathing fire above the battle",
+    "Heroic combat on ramparts and field",
+    "Arya and Sansa watching from walls",
+    "Magical fire barrier lit by Melisandre",
+    "The Night King and White Walkers advancing"
+  ],
+  "special_effects": [
+    "snowstorm blizzard",
+    "flaming swords",
+    "dragon fire and flight",
+    "undead swarms",
+    "magical pyrotechnics"
+  ],
+  "color_palette": "icy blues, glowing orange fire, shadowy grays, dragon flame red",
+  "music_and_sound": "epic orchestral, battle sounds, dragon roars, storm winds",
+  "camera_angles": [
+    "wide panoramic shots of battlefield",
+    "close-ups on key characters' faces",
+    "overhead dragon flight sequences",
+    "tracking shots through chaotic fight"
+  ]
+}

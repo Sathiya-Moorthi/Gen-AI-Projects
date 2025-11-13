@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .icon-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px;
+            width: 24px;
+            height: 24px;
+        }
+
+        .icon-cell {
+            background: white;
+            border-radius: 2px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        .display {
+            background: #333;
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: right;
+            font-size: 42px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 20px;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-clear {
+            background: #ff3b30;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #e63229;
+        }
+
+        .btn-operator {
+            background: #ff9500;
+            color: white;
+        }
+
+        .btn-operator:hover {
+            background: #e68a00;
+        }
+
+        .btn-equals {
+            background: #34c759;
+            color: white;
+        }
+
+        .btn-equals:hover {
+            background: #2db04d;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+            display: block;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                padding: 20px;
+            }
+
+            .display {
+                font-size: 32px;
+                padding: 20px;
+            }
+
+            button {
+                padding: 15px;
+                font-size: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="header">
+            <div class="icon">
+                <div class="icon-grid">
+                    <div class="icon-cell"></div>
+                    <div class="icon-cell"></div>
+                    <div class="icon-cell"></div>
+                    <div class="icon-cell"></div>
+                </div>
+            </div>
+            <h1>Basic Calculator</h1>
+        </div>
+
+        <div class="display" id="display">0</div>
+
+        <div class="buttons">
+            <button class="btn-clear" onclick="clearDisplay()">C</button>
+            <button onclick="deleteDigit()">DEL</button>
+            <button class="btn-operator" onclick="setOperation('/')">÷</button>
+            <button class="btn-operator" onclick="setOperation('*')">×</button>
+
+            <button onclick="appendDigit('7')">7</button>
+            <button onclick="appendDigit('8')">8</button>
+            <button onclick="appendDigit('9')">9</button>
+            <button class="btn-operator" onclick="setOperation('-')">−</button>
+
+            <button onclick="appendDigit('4')">4</button>
+            <button onclick="appendDigit('5')">5</button>
+            <button onclick="appendDigit('6')">6</button>
+            <button class="btn-operator" onclick="setOperation('+')">+</button>
+
+            <button onclick="appendDigit('1')">1</button>
+            <button onclick="appendDigit('2')">2</button>
+            <button onclick="appendDigit('3')">3</button>
+            <button style="visibility: hidden;"></button>
+
+            <button onclick="appendDigit('0')">0</button>
+            <button onclick="appendDecimal()">.</button>
+            <button class="btn-equals" onclick="calculate()">=</button>
+            <button style="visibility: hidden;"></button>
+        </div>
+
+        <div class="status" id="status"></div>
+    </div>
+
+    <script>
+        let display = '0';
+        let firstNum = null;
+        let operation = null;
+        let newNumber = true;
+
+        const API_URL = 'http://localhost:5000/calculate';
+
+        function updateDisplay() {
+            document.getElementById('display').textContent = display;
+        }
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = `status ${type}`;
+            setTimeout(() => {
+                statusEl.className = 'status';
+            }, 3000);
+        }
+
+        function appendDigit(digit) {
+            if (newNumber) {
+                display = digit;
+                newNumber = false;
+            } else {
+                if (display === '0') {
+                    display = digit;
+                } else {
+                    display += digit;
+                }
+            }
+            updateDisplay();
+        }
+
+        function appendDecimal() {
+            if (newNumber) {
+                display = '0.';
+                newNumber = false;
+            } else if (!display.includes('.')) {
+                display += '.';
+            }
+            updateDisplay();
+        }
+
+        function deleteDigit() {
+            if (display.length > 1) {
+                display = display.slice(0, -1);
+            } else {
+                display = '0';
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            display = '0';
+            firstNum = null;
+            operation = null;
+            newNumber = true;
+            updateDisplay();
+            document.getElementById('status').className = 'status';
+        }
+
+        function setOperation(op) {
+            firstNum = parseFloat(display);
+            operation = op;
+            newNumber = true;
+        }
+
+        async function calculate() {
+            if (firstNum === null || operation === null) {
+                return;
+            }
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        num1: firstNum,
+                        num2: parseFloat(display),
+                        operation: operation
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    display = String(data.result);
+                    showStatus('Calculation successful!', 'success');
+                } else {
+                    display = 'Error';
+                    showStatus(data.error || 'Calculation failed', 'error');
+                }
+            } catch (error) {
+                display = 'Error';
+                showStatus('Cannot connect to server. Make sure Flask is running on port 5000.', 'error');
+            }
+
+            firstNum = null;
+            operation = null;
+            newNumber = true;
+            updateDisplay();
+        }
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') {
+                appendDigit(e.key);
+            } else if (e.key === '.') {
+                appendDecimal();
+            } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+                setOperation(e.key);
+            } else if (e.key === 'Enter' || e.key === '=') {
+                calculate();
+            } else if (e.key === 'Escape') {
+                clearDisplay();
+            } else if (e.key === 'Backspace') {
+                deleteDigit();
+            }
+        });
+    </script>
+</body>
+</html>
