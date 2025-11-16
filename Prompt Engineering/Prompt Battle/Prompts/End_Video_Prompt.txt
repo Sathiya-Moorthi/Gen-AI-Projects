@@ -1,0 +1,128 @@
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 3,
+      "Person_look": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "IMPORT-ANT TEAM of three members sitting infornt of other 20 team in prompt battle ground",
+      "characters": [
+        "Three youngesters, Hari, Sathiya, Fayaz with black Color Hoodies and feeling celebration"
+      ],
+      "Screen_pop-up": [
+        {
+          "Team Name": "IMPORT-ANT and AI COMMINUTY",
+		  "Prompting": "Prompt Battle Challenge Completed"
+        }
+      ],
+      "action": "all persons are saying completed Successfully",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds",
+	  "audio playing in background": [
+        {
+          "reference link": ""https://www.youtube.com/watch?v=tXE1ipZKsGI",
+		  "music duration starts duration": "0.07 to 0.15 seconds",
+		  "music mode": "playing in background"
+        }
+      ],
+	  
+    }
+  ]
+}
+---------------------------
+
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 3,
+      "Person_look": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "IMPORT-ANT TEAM of three members sitting infornt of other 20 team in prompt battle ground",
+      "characters": [
+        "Three youngesters": [ "Hari", "Sathiya", "Fayaz" with black Color Hoodies and feeling celebration",
+      ],
+      "Screen_pop-up": [
+        {
+          "Team Name": "IMPORT-ANT and AI COMMINUTY",
+          "Prompting": "Prompt Battle Challenge Completed"
+        }
+      ],
+	  [
+      "action": "all persons are saying completed Successfully",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds",
+      "audio_playing_in_background": [
+        {
+          "reference_link": "https://www.youtube.com/watch?v=tXE1ipZKsGI",
+          "music_duration_starts_duration": "0.07 to 0.15 seconds",
+          "music_mode": "playing in background"
+        }
+      ]
+		] 
+ }
+}
+
+-------------------------
+
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 3,
+      "All_Person_looks": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "IMPORT-ANT TEAM of three members sitting infornt of other 20 teams in prompt battle ground",
+      "characters": [
+        "Three youngesters: Hari, Sathiya, Fayaz with black Color Hoodies and feeling celebration"
+      ],
+      "Screen_pop-up": [
+        {
+          "Team Name": "IMPORT-ANT AI",
+          "Prompting": ""PROMPT BATTLE" Completed"
+        }
+      ],
+      "action": "all persons are saying completed Successfully",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds",
+	"audio_playing_in_background": [
+        {
+          "music_mode": "celebrating success"
+        }
+      ]
+    }
+  ]
+}
+
+
+---------------------------
+
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 3,
+      "Person_look": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "IMPORT-ANT TEAM of three members sitting infornt of other 20 team in prompt battle ground",
+      "characters": [
+        "Three youngesters, Hari, Sathiya, Fayaz with black Color Hoodies and feeling celebration"
+      ],
+      "Screen_pop-up": [
+        {
+          "Team Name": "IMPORT-ANT AI",
+          "Prompting": ""PROMPT BATTLE" Completed"
+        }
+      ],
+	  [
+      "action": "all persons are saying completed Successfully",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds",
+      "audio_playing_in_background": [
+        {
+          "music_mode": "celebrating success"
+        }
+      ]
+		] 
+ }
+}

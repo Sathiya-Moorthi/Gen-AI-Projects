@@ -1,0 +1,245 @@
+Role": 'Act as AI Nano banana Expert',
+    {
+      "scene_number": 1,
+      Person look:  the head should look like a Eagle head and not like a Human
+      
+     "characters": ["Hariprasanth"],["SathyaMoorthi]","[Fayaz"]], All are looks like a Eagle head and not like a Human
+      "Character introduction ": [
+        Line : Pop up as Hariprasanth madhavan 
+        "Hariprasanth: Working in a IT office as a data engineer in Bangalore in front of Mysur IT OFFICE
+        line : Pop up as SathyaMoorthi
+        "SathyaMoorthi: Working in a IT office as a data engineer in Bangalore in front of  IT OFFICE
+         line : Pop up as Mohamed Fayaz
+         "Fayaz: Working As a Construction Architect  in Dubai and stnding in fron of Burj kalifa 
+      ],
+      "action": "All friend  looking for a Carrier Change in AI.",
+       "speaking language": "all characters should speak tamil ."
+    }
+  ]
+}
+
+-------------------------
+
+{
+"Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+"scenes": [
+    {
+      "scene_number": 1,
+      "Total number of persons in scene": "3",
+       Person Hari: the head should look like a Eagle head and not like a Human and wearing Hoddie and his right side pocket the printed logo as as “Hari" in white colour,
+	   Person Sathiya: the head should look like a Eagle head and not like a Human and wearing Hoddie and his right side pocket the printed logo as as “Sathiya" in Black colour,
+	   Person Fayaz: the head should look like a Eagle head and not like a Human and wearing Hoddie and his right side pocket the printed logo as as “Fayaz" in Blue colour,
+      "Style": "Game Engine Style (Unreal Engine look)"
+      ],
+      ["Note": "அனைவரும் மனிதனைப் போல் அல்லாமல் கழுகுத் தலை உடையவர்கள்",
+
+      "Character introduction": [
+        {
+          "line": "வரி : 'Hariprasanth Madhavan' , 'Sathiya Moorthi','Mohamed Fayaz' we are standing infront of "SOCIAL EAGLE AI OFFICE"   
+	}
+      ],
+      "action": "அனைத்து நண்பர்களும் AI-ல் (செயற்கை நுண்ணறிவு) தங்கள் தொழிலை (Career) மாற்றிக்கொள்ள விரும்புகிறார்கள்.",
+      "speaking language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+       "video duration": "8 seconds"
+    }
+
+  ]
+}
+
+
+-----------------------
+
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 1,
+      "Total_number_of_persons_in_scene": "3",
+      "Persons": [
+        {
+          "Name": "Hari",
+          "Appearance": "the head should look like a Eagle head and not like a Human and wearing Hoddie and his right side pocket the printed logo as as “Hari\" in white colour"
+        },
+        {
+          "Name": "Sathiya",
+          "Appearance": "the head should look like a Eagle head and not like a Human and wearing Hoddie and his right side pocket the printed logo as as “Sathiya\" in Black colour"
+        },
+        {
+          "Name": "Fayaz",
+          "Appearance": "the head should look like a Eagle head and not like a Human and wearing Hoddie and his right side pocket the printed logo as as “Fayaz\" in Blue colour"
+        }
+      ],
+      "Style": "Game Engine Style (Unreal Engine look)",
+      "Note": "அனைவரும் மனிதனைப் போல் அல்லாமல் கழுகுத் தலை உடையவர்கள்",
+      "Character_introduction": [
+        {
+          "line": 'Hariprasanth Madhavan' , 'Sathiya Moorthi','Mohamed Fayaz' we are standing infront of \"SOCIAL EAGLE AI OFFICE\""
+        }
+      ],
+	   "Dialogue": [
+        {
+          "group of persons": "ஒரு வழியா சோசியல் ஈகல் ஏஐ கோர்ஸ் ஜாயின் பண்ணிட்டேன்"
+        },
+      "action": "அனைத்து நண்பர்களும் AI-ல் (செயற்கை நுண்ணறிவு) தங்கள் தொழிலை (Career) மாற்றிக்கொள்ள விரும்புகிறார்கள்.",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds"
+    }
+  ]
+}
+
+
+-----------------------------
+
+{
+"Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+"scenes": [
+    {
+      "scene_number": 2,
+      "Person look": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "ஒளியுடைய அறை, கணினித் திரை இருட்டில் ஒளிர்கிறது.",
+      "characters": ["Three youngesters, Hari, Sathiya, Fayaz with different Color Hoodies and feeling satisified"],
+	  "Screen pop-up": ["Python", "VS Code", "Cursor", "Windsurf"],
+      "dialogue": 
+	  [
+	  {
+          "Name": "Hari",
+          "saying": "Python",
+        },
+		{
+          "Name": "Sathiya",
+          "saying": "VS Code",
+        },
+        {
+          "Name": "Fayaz",
+          "saying": " Cursor, Windsurf"
+        },
+		
+      ],
+      "action": "all persons are saying Installed Successfully",
+"speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds"
+    }
+  ]
+}
+
+I am looking for the Tamil dialogue not in English which is spoken by the characters
+
+
+
+--------------------------------
+
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 2,
+      "Person_look": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "ஒளியுடைய அறை, கணினித் திரை இருட்டில் ஒளிர்கிறது.",
+      "characters": [
+        "Three youngesters, Hari, Sathiya, Fayaz with different Color Hoodies and feeling satisified"
+      ],
+      "Screen_pop-up": [
+        "Python",
+        "VS Code",
+        "Cursor",
+        "Windsurf"
+      ],
+      "dialogue": [
+        {
+          "Name": "Hari",
+          "saying": "Python!"
+        },
+        {
+          "Name": "Sathiya",
+          "saying": "VS Code!"
+        },
+        {
+          "Name": "Fayaz",
+          "saying": "Cursor, Windsurf!"
+        }
+      ],
+      "action": "all persons are saying Installed Successfully",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds"
+    }
+  ]
+}
+
+
+--------------------------------------
+
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 3,
+      "Person_look": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "ஒளியுடைய அறை, கணினித் திரை இருட்டில் ஒளிர்கிறது, everybody sitting infront of laptop",
+      "characters": [
+        "Three youngesters, Hari, Sathiya, Fayaz with different Color Hoodies and feeling celebration"
+      ],
+      "Screen_pop-up": [
+        "Python Program": "I'm a Python Programmer, Completed my python challenges"
+      ],
+      "dialogue": [
+        {
+          "Name": "Hari",
+          "saying": "Excute!"
+        },
+        {
+          "Name": "Sathiya",
+          "saying": "Debug!"
+        },
+        {
+          "Name": "Fayaz",
+          "saying": "Run!"
+        }
+      ],
+      "action": "all persons are saying completed Successfully",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds"
+    }
+  ]
+}
+
+-------------------------
+
+{
+  "Role": "AI நானோ வாழை நிபுணராக செயல்படு",
+  "scenes": [
+    {
+      "scene_number": 3,
+      "Person_look": "தலை மனிதனைப் போல் அல்லாமல் கழுகுத் தலை போல் இருக்க வேண்டும்",
+      "Style": "கேம் எஞ்சின் பாணி (அன்ரியல் எஞ்சின் தோற்றம்)",
+      "setting": "ஒளியுடைய அறை, கணினித் திரை இருட்டில் ஒளிர்கிறது, everybody sitting infront of laptop",
+      "characters": [
+        "Three youngesters, Hari, Sathiya, Fayaz with different Color Hoodies and feeling celebration"
+      ],
+      "Screen_pop-up": [
+        {
+          "Python Program": "I'm a Python Programmer, Completed my python challenges"
+        }
+      ],
+      "dialogue": [
+        {
+          "Name": "Hari",
+          "saying": "Excute!"
+        },
+        {
+          "Name": "Sathiya",
+          "saying": "Debug!"
+        },
+        {
+          "Name": "Fayaz",
+          "saying": "Run!"
+        }
+      ],
+      "action": "all persons are saying completed Successfully",
+      "speaking_language": "அனைத்து கதாபாத்திரங்களும் தமிழில் பேச வேண்டும்.",
+      "video_duration": "8 seconds"
+    }
+  ]
+}

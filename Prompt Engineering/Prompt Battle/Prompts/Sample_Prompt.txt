@@ -1,0 +1,28 @@
+
+------ Sample Prompt----------
+
+{
+"Role": 'Act as AI Nano banana Expert',
+  "scenes": [
+    {
+      "scene_number": 1,
+      Person look:  the head should look like a Eagle head and not like a Human
+      "Style": "Game Engine Style (Unreal Engine look)",
+      "setting": "A dimly lit room with a computer screen glowing in the dark.",
+      "characters": ["A young man, Sathiya, looking Exicted"],
+	  "Screen pop-up": [RPA, PyAutogui,Playwright,Flask framework Rest API, Postman]
+      "dialogue": 
+	  [
+	  
+        "Sathiya: (தனக்குத்தானே முணுமுணுத்துக் கொள்கிறான்) எனக்கு RPA, அதாவது Robotic Process Automation பற்றித் தெரியும். அதில் PyAutogui, Playwright, Selenium போன்ற Frameworks வைத்து நமது daily works  automate செய்யலாம். மேலும் Flask Framework Rest API, Postman.. இவையெல்லாம் அற்புதமாக வேலை செய்கின்றன!",
+		
+        "Sathiya: (ஆர்வத்துடன்) நான் இன்னும் அதிகமாக explore seiya வேண்டும்.."
+      ],
+      "action": "Sathiya stares at the screen, trying different tools, but all seems effective."
+    }
+    }
+	
+(ஆர்வத்துடன்) நான் இன்னும் அதிகமாக explore seiya வேண்டும்..
+
+(தனக்குத்தானே முணுமுணுத்துக் கொள்கிறான்) எனக்கு RPA, அதாவது Robotic Process Automation பற்றித் தெரியும். அதில் PyAutogui, Playwright, Selenium போன்ற Frameworks வைத்து நமது daily works  automate செய்யலாம். மேலும் Flask Framework Rest API, Postman.. இவையெல்லாம் அற்புதமாக வேலை செய்கின்றன!"
+

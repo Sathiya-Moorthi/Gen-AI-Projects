@@ -1,0 +1,116 @@
+{
+  "role": "Act as AI Nano banana Expert",
+  "scenes": [
+    {
+      "scene_number": 1,
+      "person_look": "The head should look like an Eagle head and not like a Human",
+      "style": "Game Engine Style (Unreal Engine look)",
+      "setting": "A dimly lit room with a computer screen glowing in the dark.",
+      "characters": [
+        {
+          "name": "Hari",
+          "description": "A young man, looking frustrated"
+        }
+      ],
+      "dialogue": [
+        {
+          "speaker": "Hari",
+          "line": "(தனக்குள் முணுமுணுக்கிறான்) எனக்கு Python Program தெரியும், LLM-கள் தெரியும், ஆனா இந்த prompts... இதுங்க வேலை செய்யவே மாட்டேங்குதே!"
+        },
+        {
+          "speaker": "Hari",
+          "line": "(பெருமூச்சு விடுகிறான்) இதைவிட ஒரு நல்ல வழி இருக்கணும்..."
+        }
+      ],
+      "action": "Hari stares at the screen, trying different prompts, but none seem effective."
+    },
+    {
+      "scene_number": 2,
+      "person_look": "The head should look like an Eagle head and not like a Human",
+      "style": "Game Engine Style (Unreal Engine look)",
+      "setting": "The same room, now with better lighting. Hari is smiling and typing confidently.",
+      "characters": [
+        {
+          "name": "Hari",
+          "description": "A young man, looking pleased"
+        }
+      ],
+      "dialogue": [
+        {
+          "speaker": "Hari",
+          "line": "(தனக்குள்) R T C F R... ROLE , TASKS, CONTEXT, FEW SHOTS, Response and Tones!"
+        },
+        {
+          "speaker": "Hari",
+          "line": "(தட்டச்சு செய்கிறான்) 'Office ku ஒரு Python Application Crete pannu ippove...'"
+        },
+        {
+          "speaker": "Hari",
+          "line": "(திரையில் கோட் (Code) தோன்றுகிறது) ஆமாம்! வேலை செஞ்சிருச்சு!"
+        }
+      ],
+      "action": "Hari successfully generates code using the RTCFR framework, looking pleased with himself."
+    },
+    {
+      "scene_number": 3,
+      "person_look": "The head should look like an Eagle head and not like a Human, and his right side pocket has the printed logo 'Hariprasanth Madhavan' in white colour.",
+      "style": "Game Engine Style (Unreal Engine look)",
+      "setting": "Person is standing before a presentation screen.",
+      "characters": [
+        {
+          "name": "Hari"
+        }
+      ],
+      "dialogue": [
+        {
+          "speaker": "Hari",
+          "line": "(பெருமூச்சு விடுகிறான்) ..."
+        },
+        {
+          "speaker": "Hari",
+          "line": "(நண்பர்களிடம்) கழுகுகளே, நாம் இன்று 14 அடி உயரத்திற்கு மேலே இருக்கிறோம்."
+        },
+        {
+          "speaker": "Hari",
+          "line": "(மகிழ்ச்சியுடன் எதிராளியிடம் சத்தமாகச் சொல்கிறான்) மனோஜ் Bro and Thiru Bro , அடுத்த வாரம் ஆரம்பிக்கலாமா !!!"
+        }
+      ],
+      "action": "Hari concludes the presentation, looking pleased."
+    },
+    {
+      "scene_number": 4,
+      "person_look": "The head should look like an Eagle head and not like a Human. All characters have eagle heads.",
+      "style": "Game Engine Style (Unreal Engine look)",
+      "setting": "The same room, now with better lighting. Friends are standing before the presentation screen.",
+      "characters": [
+        {
+          "name": "Hariprasanth",
+          "look": "Eagle head"
+        },
+        {
+          "name": "SathyaMoorthi",
+          "look": "Eagle head"
+        },
+        {
+          "name": "Fayaz",
+          "look": "Eagle head"
+        }
+      ],
+      "dialogue": [
+        {
+          "speaker": "Hariprasanth",
+          "line": "Thankyou friends"
+        },
+        {
+          "speaker": "SathyaMoorthi",
+          "line": "Thankyou friends happily"
+        },
+        {
+          "speaker": "Fayaz",
+          "line": "Thankyou All happy weekend"
+        }
+      ],
+      "action": "All friends successfully completed the presentations."
+    }
+  ]
+}
