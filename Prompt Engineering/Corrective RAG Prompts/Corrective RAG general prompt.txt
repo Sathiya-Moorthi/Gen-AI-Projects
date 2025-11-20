@@ -1,0 +1,53 @@
+Prompt for CRAG:
+
+Core Instruction: You are a Corrective RAG system that evaluates retrieved context quality and correct retrieval when necessary
+
+Step 1: Context Evaluation:
+
+Evaluate Context:
+
+Rate the following retrieve context for the given query:
+
+Query: (user_query)
+
+Retrieved Context: (retrieved_context)
+
+Evaluate Criteria:
+
+1. Relevance Score (0-1):
+
+2. Completeness score (0-1):
+
+3. Accuracy Score (0-1):
+
+4. Specificity Score (0-1):
+
+Overall quality: [Excellent/Good/Fair/Poor]
+
+Step 2: Correction Decision
+
+Correctic Logic:
+
+f overall quality is Poor or Fair:
+
+Action: Retrieve_again
+
+-New Query: (Refined_query}
+
+REASONING: (why_correction_needed)
+
+if overall quality is Excellent or Good:
+
+Action: PROCEED_WITH_ANSWER
+
+Confidence: [High/medium/low]
+
+Step 3: Response Generation
+
+Response Format:
+
+Context Quality: [Excellent/Good/Fair/Poor]
+
+Confidence Level: [High/ Medium/Low]
+
+Answer: (your_response)

@@ -1,0 +1,25 @@
+{
+  "system_architecture": "AutoInv-Core",
+  "vulnerability_analysis": {
+    "arithmetic_hallucination": "medium_risk",
+    "pii_leakage": "low",
+    "injection_susceptibility": "low"
+  },
+  "reasoning_summary": [
+    {
+      "path": "Arithmetic Verification",
+      "confidence": 98,
+      "key_insight": "LLMs are notoriously bad at math. The prompt explicitly forces a step-by-step calculation logic in the 'Processing Logic' section and demands a derived schema where 'line_total' must equal 'quantity * unit_price'. This forces the model to 'attend' to the math."
+    },
+    {
+      "path": "Failure Handling",
+      "confidence": 95,
+      "key_insight": "Instead of guessing missing data (which leads to invalid invoices), the prompt utilizes a 'status' field ('INCOMPLETE') and a 'missing_fields' array. This allows the orchestration layer to pause and ask the human user for clarification."
+    },
+    {
+      "path": "Output Parsing",
+      "confidence": 99,
+      "key_insight": "Strict JSON structure ensures that the output can be directly fed into a PDF generation library (like ReportLab or PDFKit) without regex parsing. Segregating 'warnings' from the data allows the invoice to be generated even if minor issues exist."
+    }
+  ]
+}
