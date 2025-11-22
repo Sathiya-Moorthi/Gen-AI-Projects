@@ -78,35 +78,59 @@ with tab1:
     else:
         st.warning("Backend is offline or database is empty.")
 
-# --- Tab 2: Workout History & Export ---
+
+# --- Tab 2: Workout History & Management ---
 with tab2:
-    st.subheader("Detailed Logs & Export")
+    st.subheader("Manage Logs")
     
     if history_data:
+        # Option 1: Download Data (Keep this!)
         df_history = pd.DataFrame(history_data)
-        
-        # --- NEW: Export Section ---
-        col1, col2 = st.columns([1, 4]) # Create columns to align button nicely
-        with col1:
-            # Convert DataFrame to CSV
-            csv = df_history.to_csv(index=False).encode('utf-8')
-            
-            st.download_button(
-                label="📥 Download CSV",
-                data=csv,
-                file_name="gym_workout_history.csv",
-                mime="text/csv",
-                help="Click to download your full workout history as a CSV file."
-            )
-        
-        # Display Table
-        st.dataframe(
-            df_history[["date", "exercise_name", "sets", "reps", "weight_kg", "volume"]],
-            use_container_width=True,
-            hide_index=True
+        csv = df_history.to_csv(index=False).encode('utf-8')
+        st.download_button(
+            label="📥 Download CSV",
+            data=csv,
+            file_name="gym_history.csv",
+            mime="text/csv"
         )
+        
+        st.divider()
+        
+        # Option 2: Interactive List with Delete Buttons
+        # We iterate through the data to create a row for each log
+        for log in history_data:
+            # Create 5 columns: Date | Exercise | Details | Volume | Delete Button
+            col1, col2, col3, col4, col5 = st.columns([2, 3, 3, 2, 1])
+            
+            with col1:
+                st.write(f"📅 {log['date']}")
+            with col2:
+                st.write(f"**{log['exercise_name']}**")
+            with col3:
+                st.write(f"{log['sets']} x {log['reps']} @ {log['weight_kg']}kg")
+            with col4:
+                st.write(f"Vol: {log['volume']}")
+            with col5:
+                # The button needs a unique key, so we use the log's ID
+                if st.button("🗑️", key=f"del_{log['id']}", help="Delete this entry"):
+                    try:
+                        # Send DELETE request to backend
+                        del_resp = requests.delete(f"{API_URL}/log/{log['id']}")
+                        if del_resp.status_code == 200:
+                            st.success("Deleted!")
+                            # Rerun the app to refresh the list immediately
+                            st.rerun()
+                        else:
+                            st.error("Could not delete.")
+                    except requests.exceptions.ConnectionError:
+                        st.error("Backend offline.")
+            
+            # Add a visual separator line between rows
+            st.markdown("---")
+            
     else:
-        st.info("No history available to export.")
+        st.info("No history available.")
+
 
 # --- Tab 3: 1RM Calculator ---
 with tab3:

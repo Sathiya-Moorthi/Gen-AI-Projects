@@ -3,11 +3,16 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import func
+import os
 
 app = Flask(__name__)
 
+# --- NEW CONFIGURATION ---
+# Get the absolute path of the directory where this script is located
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 # Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gym_log.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'gym_log.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -105,6 +110,22 @@ def get_progress():
         progress_data.sort(key=lambda x: x['date'])
         
         return jsonify(progress_data), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/log/<int:id>', methods=['DELETE'])
+def delete_workout(id):
+    """
+    Delete a workout log by its ID.
+    """
+    try:
+        log = WorkoutLog.query.get(id)
+        if log:
+            db.session.delete(log)
+            db.session.commit()
+            return jsonify({"message": "Deleted successfully"}), 200
+        else:
+            return jsonify({"error": "Log not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
