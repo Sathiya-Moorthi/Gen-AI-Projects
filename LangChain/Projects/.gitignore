@@ -20,6 +20,3 @@ build/
 *.swp
 *.swo
 *~
-
-# Git Ignore File
-.gitignore
