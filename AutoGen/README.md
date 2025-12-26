@@ -3,15 +3,23 @@
 This folder contains projects and examples using Microsoft AutoGen for multi-agent systems.
 
 ## 📂 Subdirectories
-- **Multi Agents**: A nested project or collection of multi-agent scripts.
+- **Projects**: Complex, multi-file projects (e.g., Content Workflow with Flask/Streamlit).
+- **Workflows**: Standalone agent scripts and simpler workflows (Weather Agent, Image Agent).
 
 ## 🚀 Getting Started
 
-To explore the agents:
+To explore the workflows:
 ```bash
-cd "Multi Agents"
-# Refer to internal documentation if available, or explore the scripts.
+cd Workflows
+# Example: Run the weather agent
+python weather_agent.py
+```
+
+To run the main project:
+```bash
+cd Projects
+# Follow instructions in Projects/README.md
 ```
 
 ## ⚠️ Notes
-- The `Multi Agents` folder may contain its own git repository configuration.
+- Ensure you have the necessary dependencies installed (`pip install pyautogen`).
