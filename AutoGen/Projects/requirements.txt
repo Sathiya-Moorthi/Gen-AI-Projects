@@ -1,0 +1,26 @@
+# RTCFR Multi-Agent Content Generation System
+# Python Dependencies
+
+# Core Dependencies
+autogen-core>=0.2.0
+autogen-ext>=0.2.0
+
+# Web Framework
+Flask>=2.3.0
+flask-cors>=4.0.0
+
+# Frontend
+streamlit>=1.28.0
+plotly>=5.18.0
+
+# HTTP Requests
+requests>=2.31.0
+
+# Data Processing
+pandas>=2.0.0
+
+# Environment Management
+python-dotenv>=1.0.0
+
+#loading .env file
+python-dotenv>=1.0.0

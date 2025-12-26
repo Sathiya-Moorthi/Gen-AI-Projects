@@ -20,10 +20,10 @@ This repository contains a collection of projects, scripts, and experiments rela
 - **RPA_Automation**: Automation scripts using Playwright, PyAutoGUI, and Selenium.
 - **Streamlit**: Interactive web applications.
 - **UI Automation**: Desktop automation tools (includes notepad automation).
-- **context_engineering**: structured context engineering projects.
+- **Context Engineering**: Structured context engineering projects.
 - **github_automation**: Scripts for automating GitHub interactions.
 - **n8n automation**: Workflows and scripts for n8n automations.
-- **python_challange_15_days**: Solutions for a 15-day Python coding challenge.
+- **python_challange_days**: Solutions for a 15-day Python coding challenge.
 - **resume_comparison_tool**: Tool to compare resumes against job descriptions.
 
 ## 🚀 Getting Started
