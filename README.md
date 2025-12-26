@@ -4,9 +4,7 @@ This repository contains a collection of projects, scripts, and experiments rela
 
 ## 📂 Project Structure
 
-## 📂 Project Structure
-
-- **AutoGen**: Agents and multi-agent workflows using Microsoft AutoGen.
+- **AutoGen**: Agents and multi-agent workflows using Microsoft AutoGen (Projects & Workflows).
 - **Flask_API**: API implementations and simple apps using Flask.
 - **GraphRAG**: Graph-based Retrieval-Augmented Generation experiments.
 - **Hugging_Face**: Projects leveraging the Hugging Face ecosystem.
@@ -44,9 +42,20 @@ This repository contains a collection of projects, scripts, and experiments rela
 
 ## 🛠️ Technologies
 
-- Python
-- LangChain
-- Hugging Face Transformers
-- Flask
-- Streamlit
-- Automation Tools
+### 🤖 AI & LLM Frameworks
+- **Python**: Core programming language.
+- **LangChain**: Building context-aware reasoning Generative AI applications.
+- **MicroSoft AutoGen**: Enabling multi-agent orchestration.
+- **GraphRAG**: Advanced retrieval using knowledge graphs.
+- **Hugging Face**: Access to thousands of pre-trained models.
+- **Ollama**: Local LLM execution.
+
+### 🌐 Web & API Development
+- **Flask**: Lightweight WSGI web application framework.
+- **Streamlit**: Turns data scripts into shareable web apps.
+
+### ⚙️ Automation & Tools
+- **n8n**: Workflow automation tool.
+- **Playwright / Selenium**: Web browser automation.
+- **PyAutoGUI**: Cross-platform GUI automation.
+- **Livekit**: Real-time voice and video integration.
