@@ -1,0 +1,299 @@
+{
+  "name": "Telegram Design Request Automation_v0",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {
+          "download": true
+        }
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "name": "Telegram Trigger",
+      "id": "de348603-257a-4eea-8576-523584b646ef",
+      "webhookId": "b9846889-2935-497d-8946-842d15bd2db9",
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const data = $json;\n\nif (!data.result || !data.result.length) {\n  return [{\n    json: {\n      request_text: \"\",\n      file_id: null,\n      file_name: null\n    }\n  }];\n}\n\n// ✅ Always pick latest message\nconst msg = data.result[data.result.length - 1].message || {};\nconst requestText = msg.text || \"\";\n\n// ✅ Extract file from ALL possible Telegram types\nlet fileId = null;\nlet fileName = null;\n\n// ✅ If video\nif (msg.video) {\n  fileId = msg.video.file_id;\n  fileName = \"latest_design_video.mp4\";\n}\n\n// ✅ If document video\nif (msg.document && msg.document.file_id) {\n  fileId = msg.document.file_id;\n  fileName = msg.document.file_name || \"latest_design_video.mp4\";\n}\n\n// ✅ If animation (sometimes Telegram sends MP4 as animation)\nif (msg.animation) {\n  fileId = msg.animation.file_id;\n  fileName = \"latest_design_video.mp4\";\n}\n\nreturn [{\n  json: {\n    request_text: requestText,\n    file_id: fileId,\n    file_name: fileName\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        464,
+        0
+      ],
+      "name": "Extract Request (JS)",
+      "id": "ad31697c-2ff1-45d7-bc2a-daae58ee780c"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        928,
+        0
+      ],
+      "name": "Fetch Recent Files",
+      "id": "42fa1413-82d0-40ff-ab26-08f6e9f983f9",
+      "webhookId": "d0e5cf0e-3eba-4305-9654-bd29d1c0f5d9",
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "// Input is coming from \"Fetch Recent Files\" Telegram node\nconst files = items;\n\n// Filter only video/mp4 files\nconst videos = files.filter(i =>\n  i.json?.result?.file_path?.endsWith('.mp4')\n);\n\n// If no video found → stop workflow\nif (!videos.length) {\n  throw new Error('No video found');\n}\n\n// ✅ Always pick the latest video (last one)\nconst latest = videos[videos.length - 1];\n\nreturn [\n  {\n    json: {\n      file_id: latest.json.result.file_id,\n      file_name: latest.json.result.file_path || 'latest_video.mp4',\n      mime_type: 'video/mp4'\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1168,
+        0
+      ],
+      "name": "Pick Latest Video (JS)",
+      "id": "381c07a3-6a8e-4c31-804d-9b918314439e"
+    },
+    {
+      "parameters": {
+        "functionCode": "// ✅ SAFELY forward all incoming binary fields\nconst allBinary = $input.item.binary;\n\n// ✅ Build professional HTML email\nconst emailHtml = `\n<div style=\"font-family: Arial, sans-serif; font-size: 14px; color:#333;\">\n  <p>Hi,</p>\n\n  <p>\n    Here is the latest design video based on your request:\n    <b>${$json.request_text || \"Design request\"}</b>\n  </p>\n\n  <p>\n    Please find the attached video at the end of this email.\n  </p>\n\n  <br>\n\n  <p>\n    Thanks & Regards,<br>\n    Design Team<br>\n  </p>\n</div>\n`;\n\nreturn [\n  {\n    json: {\n      email_subject: \"Your Design Request Update\",\n      email_html: emailHtml\n    },\n\n    // ✅ THIS IS THE CRITICAL LINE\n    binary: allBinary\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        0
+      ],
+      "name": "Prepare Email (JS)",
+      "id": "e0e30439-7f62-4f42-99c5-b0a102e9d719"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.user_email || \"s58083061@gmail.com\" }}",
+        "subject": "={{ $json.email_subject }}",
+        "message": "={{ $json.email_html }}",
+        "options": {
+          "appendAttribution": false,
+          "attachmentsUi": {
+            "attachmentsBinary": [
+              {}
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        1856,
+        0
+      ],
+      "name": "Send Email with Video",
+      "id": "11af3ff6-89ab-48f6-b2eb-5e301dcb7c50",
+      "webhookId": "054a2513-b189-4ef7-88b6-a2bc0b3149fd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "6aa31a40-1f9e-4fa9-8eef-bd9ab6e696ea",
+              "leftValue": "file_id",
+              "rightValue": "null",
+              "operator": {
+                "type": "string",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "8c3bfb0a-e3dd-4f24-97bd-4440693faeb6",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.telegram.org/bot8250204125:AAF_citwgufqJWYSUOHgZApRnJcU2YR-cko/getUpdates",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "facd28aa-8076-4e2b-aca8-466e129bb2fd",
+      "name": "Get Latest Chat Messages"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "fileId": "={{ $json.file_id }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1376,
+        0
+      ],
+      "id": "a824efd2-2fdf-4492-a7bc-8fce7c9d3aa4",
+      "name": "Get a file",
+      "webhookId": "2f712d2e-b821-440a-b812-2473cdd81391",
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Latest Chat Messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Request (JS)": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Recent Files": {
+      "main": [
+        [
+          {
+            "node": "Pick Latest Video (JS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pick Latest Video (JS)": {
+      "main": [
+        [
+          {
+            "node": "Get a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Email (JS)": {
+      "main": [
+        [
+          {
+            "node": "Send Email with Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Fetch Recent Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Latest Chat Messages": {
+      "main": [
+        [
+          {
+            "node": "Extract Request (JS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file": {
+      "main": [
+        [
+          {
+            "node": "Prepare Email (JS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "50c840fc-8fa4-4f91-aa61-e12267adbc68",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "CWLGU1kxQGdmpZWt",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    }
+  ]
+}

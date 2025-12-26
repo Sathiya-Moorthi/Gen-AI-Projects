@@ -1,0 +1,194 @@
+{
+  "name": "Support Request Notifications",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -32
+      ],
+      "id": "46b73e9e-5561-4bbf-a0f9-f9a9ec76c1c2",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 2,
+        "filters": {
+          "readStatus": "unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -176,
+        -32
+      ],
+      "id": "a3f1ed1d-16cc-4c3b-9e47-8da0e2eb1e09",
+      "name": "Get many messages",
+      "webhookId": "368c973f-4289-4d67-9454-37f58fd234bf",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9cd14fb3-bfdf-45d7-8b95-6cae399413a9",
+              "name": "from_raw",
+              "value": "={{ $json.From }}",
+              "type": "string"
+            },
+            {
+              "id": "184bb24a-889a-44af-85bd-9ea22af072e4",
+              "name": "from_email",
+              "value": "={{\n  ($json.From || \"\")\n    .match(/<(.+)>/)?.[1] \n    || $json.From\n}}\n",
+              "type": "string"
+            },
+            {
+              "id": "ed1bdae8-73a5-4ad6-881f-23469207d6bf",
+              "name": "subject",
+              "value": "={{ $json.Subject }}",
+              "type": "string"
+            },
+            {
+              "id": "f68344f1-c0c5-420a-a0ce-14407cf17d2a",
+              "name": "snippet",
+              "value": "={{ $json.snippet }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": false
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        240,
+        -16
+      ],
+      "id": "d8c64054-cca9-4a37-9f89-c64ccd599642",
+      "name": "Extract sender, subject, body"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        32,
+        -32
+      ],
+      "id": "cc2b969e-6b3e-4cb8-9773-2533c74b5732",
+      "name": "Split In Batches – 1 email at a time"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0A1HDR0H47",
+          "mode": "list",
+          "cachedResultName": "support"
+        },
+        "messageType": "={{\n  \"🚨 *New Support Request*\\n\\n\" +\n  \"*From:* \" + $json.from_email + \"\\n\" +\n  \"*Subject:* \" + $json.subject + \"\\n\\n\" +\n  \"*Message Preview:*\\n\" + $json.snippet + \"\\n\\n\" +\n  \"_Received via n8n automation_\"\n}}\n",
+        "attachments": [],
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        -16
+      ],
+      "id": "26551b07-6d28-4b3c-ac15-a87373086b55",
+      "name": "Send a message",
+      "webhookId": "70d90f6e-0d31-44fe-ae14-87ef2d8ba7bd",
+      "credentials": {
+        "slackApi": {
+          "id": "NLckEwPQkEmknBnt",
+          "name": "Slack – Support Bot"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get many messages",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages": {
+      "main": [
+        [
+          {
+            "node": "Split In Batches – 1 email at a time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split In Batches – 1 email at a time": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Extract sender, subject, body",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract sender, subject, body": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Kolkata",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "956031b9-e80b-4505-b272-1525ab86845e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "q3sJrzUqxHDpu6nc",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    }
+  ]
+}

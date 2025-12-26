@@ -1,0 +1,5 @@
+# Secrets
+.env
+token.txt
+__pycache__/
+*.py[cod]

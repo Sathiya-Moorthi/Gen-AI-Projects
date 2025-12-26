@@ -1,0 +1,116 @@
+{
+  "name": "my first workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        -112
+      ],
+      "id": "73eb9967-d1d9-47ad-a28e-9745043517fe",
+      "name": "Trigger Manually",
+      "notesInFlow": true,
+      "notes": "Trigger to start the workflow"
+    },
+    {
+      "parameters": {
+        "content": "### I'm a Sathiya\n**Welcome to my first n8n workflow**",
+        "height": 80,
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -368,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "3d79db1f-47a2-44e6-88aa-60f0b1d30753",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "dataTableId": {
+          "__rl": true,
+          "value": "1",
+          "mode": "id"
+        },
+        "outputs": {
+          "values": [
+            {
+              "outputName": "Field 1:",
+              "outputValue": "Sathiya"
+            },
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.evaluation",
+      "typeVersion": 4.8,
+      "position": [
+        -96,
+        -112
+      ],
+      "id": "901d7e81-f16b-4aa2-ad91-3f0149c3fc57",
+      "name": "Evaluation"
+    }
+  ],
+  "pinData": {
+    "Trigger Manually": [
+      {
+        "json": {
+          "flow": 1,
+          "status": "run success"
+        }
+      }
+    ],
+    "Evaluation": [
+      {
+        "json": {
+          "name": "First item",
+          "code": 1
+        }
+      },
+      {
+        "json": {
+          "name": "Second item",
+          "code": 2
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Trigger Manually": {
+      "main": [
+        [
+          {
+            "node": "Evaluation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Kolkata",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "01835526-c110-4e1c-ae77-fc76a7cb835d",
+  "meta": {
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "6zIE2NMk95u64tVb",
+  "tags": [
+    {
+      "updatedAt": "2025-12-02T14:53:26.042Z",
+      "createdAt": "2025-12-02T14:53:26.042Z",
+      "id": "NY7D5NSs8KNMhOsQ",
+      "name": "learning"
+    }
+  ]
+}

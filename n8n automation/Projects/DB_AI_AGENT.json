@@ -1,0 +1,125 @@
+{
+  "name": "DB_AI_AGENT",
+  "nodes": [
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=Convert the user query into a SQL query: {{ $json.query }}"
+            },
+            {
+              "role": "system",
+              "content": "ACT AS: Chinook SQL Generator\n\nRULES:\n- OUTPUT ONLY VALID MySQL SQL\n- NO explanations\n- NO markdown\n- NO comments\n- NO natural language\n- READ ONLY queries only (SELECT)\n- Query must be executable as-is\n\nIf the request is destructive, output exactly:\nREJECTED\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "58ddc06d-57f8-4633-8b61-90e9726da80f",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "1O1WjGRiob3gV9ew",
+          "name": "opena_ai_api_key_sathiya"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "{{ $json.output[0].content[0].text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        560,
+        0
+      ],
+      "id": "213767b7-6670-420d-90ed-7ef3b8067e6d",
+      "name": "Execute a SQL query",
+      "credentials": {
+        "mySql": {
+          "id": "ir72qMTwfH3DUUa6",
+          "name": "MySQL account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "query"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "82926f49-f68d-4b55-b7e9-3e3af9ba0cad",
+      "name": "When Executed by Another Workflow"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Execute a SQL query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7b2352d3-56b0-442f-b45c-48291ab23b0c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "gpQjYtcBpbt9xVT4",
+  "tags": [
+    {
+      "updatedAt": "2025-12-13T15:59:13.165Z",
+      "createdAt": "2025-12-13T15:59:13.165Z",
+      "id": "pNxbMOpNLFXmSEsa",
+      "name": "AI Agent Project"
+    }
+  ]
+}

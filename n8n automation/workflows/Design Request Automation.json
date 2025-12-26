@@ -1,0 +1,157 @@
+{
+  "name": "3. Design Request Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "event": "message.channels"
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [-540, 0],
+      "name": "Slack Trigger - Design Channel",
+      "credentials": {
+        "slackApi": {
+          "name": "Slack – Support Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.event.channel }}",
+              "operation": "equals",
+              "value2": "C0A1HDR0H47"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [-340, 0],
+      "name": "Allow Only #design"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "request_text",
+              "value": "={{ $json.event.text }}",
+              "type": "string"
+            },
+            {
+              "name": "request_user",
+              "value": "={{ $json.event.user }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [-120, 0],
+      "name": "Extract Request"
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "operation": "get",
+        "user": "={{ $json.request_user }}"
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [80, 0],
+      "name": "Get Slack User Email",
+      "credentials": {
+        "slackApi": {
+          "name": "Slack – Support Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "getAll",
+        "filters": {
+          "channelId": "C0A1HDR0H47"
+        },
+        "limit": 1
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [300, 0],
+      "name": "Get Latest Design Video",
+      "credentials": {
+        "slackApi": {
+          "name": "Slack – Support Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url_private_download }}",
+        "responseFormat": "file",
+        "binaryPropertyName": "designVideo",
+        "authentication": "headerAuth",
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer xoxb-YOUR-SLACK-BOT-TOKEN"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [520, 0],
+      "name": "Download Video Binary"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "to": "={{ $item(0, 'Get Slack User Email').$json.profile.email }}",
+        "subject": "={{ 'Design Request: ' + $item(0,'Extract Request').$json.request_text }}",
+        "emailType": "html",
+        "message": "={{ `<div style='font-family: Arial; font-size:14px;'> <p>Hi,</p> <p>Your design request has been received:</p> <blockquote>${$item(0,'Extract Request').$json.request_text}</blockquote> <p>The latest design video from #design is attached.</p> <p>Regards,<br><b>Design Automation</b></p></div>` }}",
+        "attachmentsBinary": ["designVideo"]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [760, 0],
+      "name": "Send Design Email",
+      "credentials": {
+        "gmailOAuth2": {
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Slack Trigger - Design Channel": {
+      "main": [[{ "node": "Allow Only #design", "type": "main", "index": 0 }]]
+    },
+    "Allow Only #design": {
+      "main": [[{ "node": "Extract Request", "type": "main", "index": 0 }]]
+    },
+    "Extract Request": {
+      "main": [[{ "node": "Get Slack User Email", "type": "main", "index": 0 }]]
+    },
+    "Get Slack User Email": {
+      "main": [[{ "node": "Get Latest Design Video", "type": "main", "index": 0 }]]
+    },
+    "Get Latest Design Video": {
+      "main": [[{ "node": "Download Video Binary", "type": "main", "index": 0 }]]
+    },
+    "Download Video Binary": {
+      "main": [[{ "node": "Send Design Email", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "timezone": "Asia/Kolkata"
+  }
+}

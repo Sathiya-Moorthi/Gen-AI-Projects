@@ -1,0 +1,114 @@
+{
+  "name": "Support Request Notifications - FIXED",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [-400, 0],
+      "id": "manual-trigger",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 5,
+        "filters": {
+          "readStatus": "unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [-180, 0],
+      "id": "gmail-get",
+      "name": "Get Unread Support Emails",
+      "credentials": {
+        "gmailOAuth2": {
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [40, 0],
+      "id": "split-batches",
+      "name": "Split 1 Email at a Time"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "from_raw",
+              "value": "={{ $json.From }}",
+              "type": "string"
+            },
+            {
+              "name": "from_email",
+              "value": "={{ ($json.From || \"\").match(/<(.+)>/)?.[1] || $json.From }}",
+              "type": "string"
+            },
+            {
+              "name": "subject",
+              "value": "={{ $json.Subject }}",
+              "type": "string"
+            },
+            {
+              "name": "snippet",
+              "value": "={{ $json.snippet }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [260, 0],
+      "id": "set-extract",
+      "name": "Extract Sender & Subject"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "support",
+          "mode": "list"
+        },
+        "text": "={{ \"🚨 *New Support Request*\\n\\n\" + \"*From:* \" + $json.from_email + \"\\n\" + \"*Subject:* \" + $json.subject + \"\\n\\n\" + \"*Message Preview:*\\n\" + $json.snippet + \"\\n\\n_Received via n8n automation_\" }}"
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [480, 0],
+      "id": "slack-post",
+      "name": "Post to Slack",
+      "credentials": {
+        "slackApi": {
+          "name": "Slack – Support Bot"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [[{ "node": "Get Unread Support Emails", "type": "main", "index": 0 }]]
+    },
+    "Get Unread Support Emails": {
+      "main": [[{ "node": "Split 1 Email at a Time", "type": "main", "index": 0 }]]
+    },
+    "Split 1 Email at a Time": {
+      "main": [[], [{ "node": "Extract Sender & Subject", "type": "main", "index": 0 }]]
+    },
+    "Extract Sender & Subject": {
+      "main": [[{ "node": "Post to Slack", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "timezone": "Asia/Kolkata"
+  }
+}

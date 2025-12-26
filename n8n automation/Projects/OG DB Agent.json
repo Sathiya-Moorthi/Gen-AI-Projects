@@ -1,0 +1,179 @@
+{
+  "name": "OG DB Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Ana. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -288,
+        32
+      ],
+      "id": "bb9c499f-9720-4efb-91be-4dbe57919fc6",
+      "name": "When chat message received",
+      "webhookId": "2520b3a5-cb94-45c8-bae8-a542820c3385"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -80,
+        32
+      ],
+      "id": "f0b3d12b-6481-47ed-be63-bf4cf3f59d00",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -64,
+        256
+      ],
+      "id": "cfe8fc8c-561f-4b0a-82b0-007f3711563d",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -224,
+        240
+      ],
+      "id": "64838917-3ee5-4028-a65f-77406c971b2d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "1O1WjGRiob3gV9ew",
+          "name": "opena_ai_api_key_sathiya"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "Call this tool when the user asks any MySQL queries",
+        "workflowId": {
+          "__rl": true,
+          "value": "gpQjYtcBpbt9xVT4",
+          "mode": "list",
+          "cachedResultUrl": "/workflow/gpQjYtcBpbt9xVT4",
+          "cachedResultName": "DB_AI_AGENT"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "query": "={{ $json.chatInput }}"
+          },
+          "matchingColumns": [
+            "query"
+          ],
+          "schema": [
+            {
+              "id": "query",
+              "displayName": "query",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        144,
+        240
+      ],
+      "id": "a63ac585-f750-415a-8a52-b1ee2c1a0720",
+      "name": "Call 'DB_AI_AGENT'"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call 'DB_AI_AGENT'": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2e5be83d-d472-4632-9753-b66e4539c5e9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "0nkpjsFWKvI1Pqw1",
+  "tags": [
+    {
+      "updatedAt": "2025-12-13T15:59:13.165Z",
+      "createdAt": "2025-12-13T15:59:13.165Z",
+      "id": "pNxbMOpNLFXmSEsa",
+      "name": "AI Agent Project"
+    }
+  ]
+}

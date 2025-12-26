@@ -1,0 +1,260 @@
+{
+  "name": "2. Support Request Notifications_v1",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d05c77f4-9964-484e-b434-d21c298ca343",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 1,
+        "filters": {
+          "q": "=from:gayathiris160305@gmail.com is:unread",
+          "readStatus": "unread"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "957747b1-f565-4edc-9ecb-1150f3a3661f",
+      "name": "Get Unread Support Emails",
+      "webhookId": "367cbce8-b281-4b6a-bc79-42bc9cb4a1b6",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "6b045a42-16f2-4f48-b515-efae923a2a7e",
+      "name": "Split 1 Email at a Time"
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "from_raw",
+              "stringValue": "={{ $json.From }}"
+            },
+            {
+              "name": "from_email",
+              "stringValue": "={{   ($json.From || \"\")     .match(/<(.+)>/)?.[1]      || $json.From }}"
+            },
+            {
+              "name": "snippet",
+              "stringValue": "={{ $json.snippet }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3,
+      "position": [
+        784,
+        16
+      ],
+      "id": "f870e942-450a-4b3d-885b-7614f354d470",
+      "name": "Extract Sender & Subject"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "support",
+          "mode": "list"
+        },
+        "text": "={{ \"🚨 *New Support Request*\\n\\n\" + \"*From:* \" + $json.from_email + \"\\n\" + \"*Subject:* \" + $json.subject + \"\\n\\n\" + \"*Message Preview:*\\n\" + $json.snippet + \"\\n\\n_Received via n8n automation_\" }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [
+        1088,
+        16
+      ],
+      "id": "354da112-2d2d-4eb5-86e6-01ad87527050",
+      "name": "Post to Slack",
+      "webhookId": "2371b666-4ee6-4d9d-8ffb-c6b8550a06c4",
+      "credentials": {
+        "slackApi": {
+          "id": "NLckEwPQkEmknBnt",
+          "name": "Slack – Support Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.from_email }}",
+        "subject": "={{ \"Re: \" + ($json.subject || \"Your Support Request\") }}",
+        "message": "=<div style=\"font-family: Arial, sans-serif; font-size: 14px; color: #333;\">   <p>Hi,</p>    <p>Thank you for reaching out to our support team. We’ve received your request and a ticket has been created successfully.</p>    <p><b>Summary of your request:</b></p>   <blockquote style=\"border-left: 3px solid #4f46e5; padding-left: 12px; color: #555;\">     {{ $json.snippet }}   </blockquote>    <p>Our team will review your query and get back to you within <b>24 hours</b>.</p>    <p>If you have any additional information to share, simply reply to this email.</p>    <br/>    <p>Best Regards,<br/>   <b>Customer Support Team</b></p>    <hr/>   <small>This is an automated acknowledgement from our support system.</small> </div>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1088,
+        224
+      ],
+      "id": "4951ca52-8c37-43e2-bf62-a8fee30770e2",
+      "name": "Send a message",
+      "webhookId": "1fbc7f5d-f601-41e4-b073-f37f97e0cb1e",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "removeLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": [
+          "INBOX"
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1104,
+        432
+      ],
+      "id": "a2638b24-5976-4135-a621-ff13026f3819",
+      "name": "Remove label from message",
+      "webhookId": "c5ba0b1b-7dda-46e3-b3e1-84f645b11a46",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# 📘 Support Request Notifications – Workflow Documentation\n\n## 🔹 Workflow Name\n\n**Support Request Notifications & Auto-Reply System**\n\n## 🔹 Purpose\n\nThis workflow automatically monitors incoming support emails, sends real-time notifications to the Slack **#support** channel, replies instantly to the customer with an acknowledgment email, and marks the original email as read.\n\n---\n\n## 🔹 High-Level Process Flow\n\n1. The workflow is triggered manually or by a schedule.\n2. Gmail is checked for **unread support emails**.\n3. Emails are processed **one at a time**.\n4. Sender, subject, and preview text are extracted.\n5. A formatted notification is posted in Slack.\n6. An automatic acknowledgment email is sent back to the customer.\n7. The original email is marked as **READ** to avoid duplicate processing.\n\n---\n\n## 🔹 Nodes Used & Their Role\n\n### ✅ Manual Trigger / Schedule Trigger\n\nStarts the support monitoring process.\n\n### ✅ Gmail – Get Unread Support Emails\n\nFetches unread emails based on:\n\n* Sender filters (test / production)\n* Subject filters (support-related)\n\n### ✅ Split In Batches\n\nProcesses one support ticket at a time to ensure:\n\n* Proper Slack notifications\n* Clean auto-replies\n* No duplicate processing\n\n### ✅ Set – Extract Sender, Subject, Snippet\n\nExtracts and normalizes:\n\n* Sender email\n* Email subject\n* Message preview\n\n### ✅ Slack – Post to #support\n\nPosts a formatted support notification to the Slack support channel with:\n\n* Sender details\n* Subject\n* Message preview\n\n### ✅ Gmail – Send Auto-Reply\n\nSends a professional HTML acknowledgment email to the customer confirming receipt of the request.\n\n### ✅ Gmail – Modify (Mark as Read)\n\nRemoves the `UNREAD` label from the processed email to prevent duplicate replies and duplicate Slack alerts.\n\n---\n\n## 🔹 Key Business Value\n\n* Real-time support visibility via Slack\n* Instant automated customer acknowledgment\n* Eliminates manual ticket monitoring\n* Prevents duplicate responses\n* Improves response time SLA\n\n---\n\n## 🔹 Safety & Controls\n\n* Test email filtering to prevent production impact\n* Sender validation to avoid auto-reply loops\n* Batch processing for API safety\n* Fallback handling to prevent undefined values\n\n---\n\n## 🔹 Final Outcome\n\n✅ Every support email is instantly reported in Slack\n✅ Customer receives immediate confirmation\n✅ Support inbox remains clean\n✅ The entire support notification process is fully automated",
+        "height": 80,
+        "width": 1088
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        48,
+        -288
+      ],
+      "id": "cea3df45-0789-44d4-b9ee-12f83246a339",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Unread Support Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Unread Support Emails": {
+      "main": [
+        [
+          {
+            "node": "Split 1 Email at a Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split 1 Email at a Time": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Extract Sender & Subject",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Sender & Subject": {
+      "main": [
+        [
+          {
+            "node": "Post to Slack",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Remove label from message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post to Slack": {
+      "main": [
+        []
+      ]
+    },
+    "Send a message": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "fd53c593-c92b-4506-b511-a4a82d1a8640",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "CMlTReqvcnS74fdw",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "task_definition": {
+    "primary_objective": "Analyze marketing email templates and transform into CREATE framework",
+    "deliverable_type": "Structured email templates using CREATE methodology",
+    "total_items_to_process": 30
+  },
+  
+  "input_specifications": {
+    "input_type": "PDFs",
+    "file_format": "PDF",
+    "number_of_files": 10,
+    "content_description": "Marketing email templates with subject lines and body copy"
+  },
+  
+  "transformation_methodology": {
+    "framework": "CREATE Method",
+    "components": {
+      "C_Character": "Define the role/persona",
+      "R_Request": "Specific task",
+      "E_Examples": "Show desired output",
+      "A_Adjustments": "Constraints and preferences",
+      "T_Type": "Format specification",
+      "E_Extras": "Additional requirements"
+    }
+  }
+}

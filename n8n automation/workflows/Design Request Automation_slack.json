@@ -1,0 +1,141 @@
+{
+  "name": "3. Design Request Automation (Stable JS)",
+  "nodes": [
+    {
+      "parameters": {
+        "event": "message",
+        "channel": "design"
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [-500, 0],
+      "id": "1",
+      "name": "Slack Trigger - #design",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "jsCode": "return [ { json: { request_text: $json.event && $json.event.text ? $json.event.text : 'Design Request', request_user: $json.event && $json.event.user ? $json.event.user : '' } } ];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-280, 0],
+      "id": "2",
+      "name": "Extract Request (JS)"
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "operation": "get",
+        "userId": "={{ $json.request_user }}"
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [-40, 0],
+      "id": "3",
+      "name": "Slack - Get User Email",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "getAll",
+        "channelId": "design"
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [200, 0],
+      "id": "4",
+      "name": "Slack - Get All Files",
+      "credentials": {}
+    },
+    {
+      "parameters": {
+        "jsCode": "const videos = items.filter(i => i.json.mimetype && i.json.mimetype.startsWith('video'));\nif (!videos.length) { throw new Error('No video found'); }\nvideos.sort((a, b) => Number(b.json.created) - Number(a.json.created));\nreturn [videos[0]];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [450, 0],
+      "id": "5",
+      "name": "Pick Latest Video (JS)"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url_private_download }}",
+        "responseFormat": "file",
+        "authentication": "headerAuth",
+        "headerParametersUi": {
+          "parameter": [
+            {
+              "name": "Authorization",
+              "value": "Bearer xoxb-REPLACE-WITH-YOUR-TOKEN"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [700, 0],
+      "id": "6",
+      "name": "Download Video (Binary)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const email = $items('Slack - Get User Email')[0].json.profile.email;\nconst request = $items('Extract Request (JS)')[0].json.request_text;\nreturn [ { json: { to: email, subject: 'Design Request: ' + request, html: '<div style=\"font-family:Arial;font-size:14px;\"><p>Hi,</p><p>Your design request:</p><blockquote>' + request + '</blockquote><p>The latest design video is attached.</p><p>Design Automation</p></div>' } } ];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [950, 0],
+      "id": "7",
+      "name": "Prepare Email Payload (JS)"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "to": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.html }}",
+        "emailType": "html",
+        "attachmentsBinary": [
+          {
+            "property": "data"
+          }
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [1200, 0],
+      "id": "8",
+      "name": "Send Email with Video",
+      "credentials": {}
+    }
+  ],
+  "connections": {
+    "Slack Trigger - #design": {
+      "main": [[{ "node": "Extract Request (JS)", "type": "main", "index": 0 }]]
+    },
+    "Extract Request (JS)": {
+      "main": [[{ "node": "Slack - Get User Email", "type": "main", "index": 0 }]]
+    },
+    "Slack - Get User Email": {
+      "main": [[{ "node": "Slack - Get All Files", "type": "main", "index": 0 }]]
+    },
+    "Slack - Get All Files": {
+      "main": [[{ "node": "Pick Latest Video (JS)", "type": "main", "index": 0 }]]
+    },
+    "Pick Latest Video (JS)": {
+      "main": [[{ "node": "Download Video (Binary)", "type": "main", "index": 0 }]]
+    },
+    "Download Video (Binary)": {
+      "main": [[{ "node": "Prepare Email Payload (JS)", "type": "main", "index": 0 }]]
+    },
+    "Prepare Email Payload (JS)": {
+      "main": [[{ "node": "Send Email with Video", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

@@ -1,0 +1,11 @@
+# Install dependencies
+streamlit 
+langchain 
+langchain-community 
+langchain-openai
+pypdf 
+sentence-transformers 
+chromadb
+duckduckgo-search 
+tiktoken 
+faiss-cpu

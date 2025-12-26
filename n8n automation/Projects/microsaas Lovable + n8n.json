@@ -1,0 +1,219 @@
+{
+  "name": "microsaas Lovable + n8n",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Call the Gmail tool or general reply based on the user query:  {{ $json.query }}",
+        "options": {
+          "systemMessage": "You are an AI Email Assistant running inside an automation workflow.\n\nYour task is to generate a warm, polite, and professional birthday wish email and send it using Gmail.\n\nRULES:\n1. Always generate a friendly birthday message.\n2. Keep the tone positive, warm, and respectful.\n3. Do NOT mention automation, AI, or system behavior.\n4. Do NOT include explanations or metadata.\n5. Output ONLY the final email content.\n\nEMAIL REQUIREMENTS:\n- Subject must include: \"Happy Birthday 🎉\"\n- Email body must:\n  • Start with a greeting\n  • Include a birthday wish\n  • End with a polite closing\n- Keep the message short and pleasant.\n\nINPUT VARIABLES (provided by the workflow):\n- recipient_email\n- recipient_name (optional)\n\nOUTPUT FORMAT (STRICT):\nSubject: <email subject>\nBody:\n<email body>"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1e47594b-0924-4f01-a310-dea4501b6092",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        16,
+        208
+      ],
+      "id": "3a6fd255-3a24-4fd6-b912-bb6e810b8271",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "globle_memory"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        160,
+        208
+      ],
+      "id": "a5b541ae-4604-4064-8608-48d5bdea16cf",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "first-agent",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "beb33759-7097-401d-afec-5881209d7a01",
+      "name": "Webhook",
+      "webhookId": "0bd8b375-6b84-4570-b228-1fe0d1d8d284"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        560,
+        0
+      ],
+      "id": "3d422255-e60a-43a4-bef6-97d76d177cdd",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        512,
+        208
+      ],
+      "id": "7e816a2a-7764-436c-9061-2fa40fbe4b4c",
+      "name": "Send a message in Gmail",
+      "webhookId": "f0832760-a958-439e-8a48-5a122df3bb56",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## n8n App for Birthday greetings\n\n### Frontend : Lovable.dev\n### Backend: n8n",
+        "height": 144,
+        "width": 432,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        112,
+        -192
+      ],
+      "id": "42244401-1b4b-4be9-9b07-6894a0dd38ec",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "query": "Send a birthday wish to s58083061@gmail.com"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4be76911-bcf2-41a8-8e7c-92c2fc5348ca",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "NUS3eqaFefrLK9dX",
+  "tags": [
+    {
+      "updatedAt": "2025-12-08T03:40:51.161Z",
+      "createdAt": "2025-12-08T03:40:51.161Z",
+      "id": "pH5wWpqY6aeKZRGS",
+      "name": "AI_Agent_Project"
+    }
+  ]
+}

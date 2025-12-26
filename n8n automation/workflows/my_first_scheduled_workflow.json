@@ -1,0 +1,113 @@
+{
+  "name": "my_first_scheduled_workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ee09792b-0962-42b8-955d-1aa210855210",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d7245136-b0c3-4120-8ebe-8a8bd94926e3",
+              "name": "Name",
+              "value": "Sathiya Moorthi",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "0c71e369-7783-4770-b2f8-c791ccf79982",
+      "name": "Name Set Up"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ab62b0f5-cb3b-4403-bea1-201ed0ae352d",
+              "name": "=Name",
+              "value": "={{ $json.Name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        416,
+        0
+      ],
+      "id": "9101e536-35c7-46b4-805a-bc24b9550eb7",
+      "name": "Getting Name from Previous Node"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Name Set Up",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Name Set Up": {
+      "main": [
+        [
+          {
+            "node": "Getting Name from Previous Node",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "bc83071f-3166-4f96-aec7-f74404e505e6",
+  "meta": {
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "EolTdnwVxhP2kI0E",
+  "tags": [
+    {
+      "updatedAt": "2025-12-02T16:12:04.363Z",
+      "createdAt": "2025-12-02T16:12:04.363Z",
+      "id": "fqbFQVybXfLI0gZQ",
+      "name": "learning_stage_1"
+    }
+  ]
+}

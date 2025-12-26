@@ -1,0 +1,134 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "chatId": "YOUR_TELEGRAM_CHAT_ID"
+      },
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [0, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_BOT_CREDENTIAL_ID",
+          "name": "Telegram Bot Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ request: $json.message.text, chat_id: $json.message.chat.id }];"
+      },
+      "name": "Extract Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "none",
+        "responseFormat": "json",
+        "jsonParameters": true,
+        "options": {},
+        "headerParametersJson": "={\"Authorization\":\"Bearer YOUR_OPENAI_API_KEY\",\"Content-Type\":\"application/json\"}",
+        "bodyParametersJson": "={\"model\":\"o4-mini\",\"messages\":[{\"role\":\"user\",\"content\":\"Write short high-conversion promotional copy for this request: {{$json.request}}. Return maximum 2 lines.\"}]}"
+      },
+      "name": "Generate Promo Copy",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/images/generations",
+        "authentication": "none",
+        "responseFormat": "file",
+        "jsonParameters": true,
+        "options": {},
+        "headerParametersJson": "={\"Authorization\":\"Bearer YOUR_OPENAI_API_KEY\",\"Content-Type\":\"application/json\"}",
+        "bodyParametersJson": "={\"model\":\"gpt-image-1\",\"prompt\":\"Create a professional promotional poster for: {{$node['Extract Request'].json['request']}}. Headline: {{$node['Generate Promo Copy'].json['choices'][0]['message']['content']}}\",\"size\":\"1024x1024\"}",
+        "binaryPropertyName": "poster"
+      },
+      "name": "Generate Promo Poster Image",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [750, 180]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendPhoto",
+        "chatId": "={{$node['Extract Request'].json.chat_id}}",
+        "binaryData": true,
+        "binaryProperty": "poster",
+        "caption": "={{$node['Generate Promo Copy'].json['choices'][0]['message']['content']}}"
+      },
+      "name": "Send Promo Poster",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [1000, 180],
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_BOT_CREDENTIAL_ID",
+          "name": "Telegram Bot Account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "https://image.pollinations.ai/prompt/{{$node['Extract Request'].json['request']}}%20promo%20video",
+        "responseFormat": "file",
+        "binaryPropertyName": "video"
+      },
+      "name": "Generate Promo Video",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [750, 420]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "sendVideo",
+        "chatId": "={{$node['Extract Request'].json.chat_id}}",
+        "binaryData": true,
+        "binaryProperty": "video",
+        "caption": "={{$node['Generate Promo Copy'].json['choices'][0]['message']['content']}}"
+      },
+      "name": "Send Promo Video",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [1000, 420],
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_TELEGRAM_BOT_CREDENTIAL_ID",
+          "name": "Telegram Bot Account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{ "node": "Extract Request", "type": "main", "index": 0 }]]
+    },
+    "Extract Request": {
+      "main": [[{ "node": "Generate Promo Copy", "type": "main", "index": 0 }]]
+    },
+    "Generate Promo Copy": {
+      "main": [
+        [{ "node": "Generate Promo Poster Image", "type": "main", "index": 0 }],
+        [{ "node": "Generate Promo Video", "type": "main", "index": 0 }]
+      ]
+    },
+    "Generate Promo Poster Image": {
+      "main": [[{ "node": "Send Promo Poster", "type": "main", "index": 0 }]]
+    },
+    "Generate Promo Video": {
+      "main": [[{ "node": "Send Promo Video", "type": "main", "index": 0 }]]
+    }
+  }
+}

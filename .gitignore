@@ -1,0 +1,15 @@
+# General
+__pycache__/
+*.py[cod]
+*.so
+.DS_Store
+.env
+.venv
+env/
+venv/
+node_modules/
+.idea/
+.vscode/
+*.log
+*.sqlite3
+*.db

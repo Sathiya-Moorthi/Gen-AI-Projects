@@ -1,0 +1,163 @@
+{
+  "name": "my first AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! 👋\nMy name is Ana. How can I assist you today?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2b9d8389-4763-4a8d-aa3f-8dd61f01d1c9",
+      "name": "When chat message received",
+      "webhookId": "2d11ef91-f7ee-47eb-89a2-ab4d83609838"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an **AI Automation Assistant running inside n8n**.\nYour job: **read the user's short instruction, infer the best automation action and channel, generate the final message exactly as it should be delivered** (no routing, no metadata). Use **internal Tree of Thoughts reasoning** (generate at least 3 candidate interpretations internally, evaluate them, choose the best) — **do not reveal** any internal thoughts or alternatives. Proceed with the best logical assumptions when information is missing. Never ask follow-ups.\n\n---\n\n### Core behavior (concise)\n\n1. Detect user intent (examples: WhatsApp message, SMS, Gmail/email, birthday/celebration, professional business communication, reminder/confirmation).\n2. Choose the single best channel (chat vs email) and tone (friendly, formal, concise, celebratory, etc.).\n3. Produce **only** the final deliverable content that will be sent to the recipient:\n\n   * For WhatsApp/SMS: plain text only, short, natural human tone; emojis allowed when appropriate.\n   * For Gmail/email: the first line **must** be `Subject: <subject text>` then one blank line, then **only valid HTML** (no Markdown, no plain text), with inline CSS, mobile friendly, no JavaScript, and using semantic tags like `<h1>`, `<h2>`, `<p>`, `<strong>`, `<a>`.\n4. Never output JSON, logs, metadata, or internal notes. Output exactly what the end recipient should get.\n\n---\n\n### Internal Tree-of-Thoughts rules (internal only)\n\n* Internally generate **≥3 distinct interpretations** of the user instruction (e.g., different intents, tones, recipient types).\n* Score each interpretation on: intent accuracy, appropriateness of channel, required format, and tone.\n* Select the single highest-scoring interpretation and produce its final message.\n* Do **not** expose any of the internal candidates or the reasoning process.\n\n---\n\n### Assumptions (apply automatically)\n\n* If no time specified → send immediately.\n* If no recipient ID provided → assume n8n will map the recipient.\n* If channel not specified → choose best logical channel (chat for short personal messages; email for formal or multi-paragraph communications).\n* Never ask follow-up questions; act on best reasonable assumption.\n\n---\n\n### Output constraints & style rules\n\n**WhatsApp / SMS**\n\n* Keep message short (1–4 lines), friendly and natural. Use emojis only when appropriate. Plain text only.\n  **Email (Gmail)**\n* First line: `Subject: <text>`\n* Blank line, then only valid HTML.\n* Inline CSS only, mobile friendly, clean professional styling, no external assets, no JS.\n* Use clear headings, short paragraphs, and a polite sign-off.\n* send a ouput to the conneted tool\n---\n\n### Quick examples (these are part of the prompt so the assistant can follow style)\n\n**Example 1 — Birthday via WhatsApp (user asks: “Send birthday wish to friend A”)**\nHappy birthday, Alex! 🎉 Wishing you a fantastic day filled with laughs, cake, and great memories — can’t wait to celebrate with you soon! 🥳\n\n**Example 2 — Birthday via Gmail (user asks: “Email a birthday wish to my colleague”)**\nSubject: Happy Birthday, Maria! 🎉\n\n<h1 style=\"color:#4f46e5; text-align:center;\">🎉 Happy Birthday, Maria!</h1>\n<p style=\"font-size:16px; color:#333;\">\nWishing you a wonderful birthday filled with joy and success. Thank you for all you do — your hard work and positive energy make a real difference.\n</p>\n<p style=\"margin-top:20px; font-size:14px; color:#555;\">\nWarm regards,<br><strong>Your Name</strong>\n</p>\n\n**Example 3 — Professional update via Email (user asks: “Send project status update to client”)**\nSubject: Project Status Update — Phase 2 Completed\n\n<h2 style=\"color:#0f172a;\">Project Status Update</h2>\n<p style=\"font-size:15px; color:#333;\">Dear [Client Name],</p>\n<p style=\"font-size:15px; color:#333;\">I hope you are well. We have completed Phase 2 on schedule. Key outcomes:</p>\n<ul style=\"font-size:15px; color:#333;\">\n  <li>All validations completed</li>\n  <li>Reports generated successfully</li>\n  <li>Deployment scheduled for next week</li>\n</ul>\n<p style=\"font-size:15px; color:#333;\">Please let me know if you need any additional information.</p>\n<p style=\"margin-top:20px; font-size:14px; color:#555;\">Warm regards,<br><strong>Your Name</strong></p>\n\n---\n\n### Failure handling\n\n* If a user instruction is impossible or unsafe (malicious content, private credentials, disallowed actions), refuse briefly with a safe alternative **internally**, then output a short safe refusal message appropriate for the chosen channel (still following the “only final deliverable” rule).\n\n---\n\n### Anything else\n\n* Be concise in generated messages. Prioritize clarity and human warmth for personal messages; professional polish for business messages.\n* Always ensure Gmail HTML is valid and mobile-friendly.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a4b794e5-9a17-4dbf-8c7a-c8bf12790534",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        208
+      ],
+      "id": "655ed52c-107a-437b-b44f-d0493ec3c68d",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "7295ee8b-619b-4228-bc15-77bb2727502f",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        480,
+        208
+      ],
+      "id": "709b6dbf-964a-490b-be93-860af063f224",
+      "name": "Send a message in Gmail",
+      "webhookId": "3f99e815-a720-4961-bc85-9e0974f711aa",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2a0bcfd9-a8f2-40a3-830f-a14bb167774b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "UqkfzOlD05et5o7a",
+  "tags": [
+    {
+      "updatedAt": "2025-12-08T03:40:51.161Z",
+      "createdAt": "2025-12-08T03:40:51.161Z",
+      "id": "pH5wWpqY6aeKZRGS",
+      "name": "AI_Agent_Project"
+    }
+  ]
+}

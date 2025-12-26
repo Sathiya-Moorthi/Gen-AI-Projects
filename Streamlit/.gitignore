@@ -1,0 +1,7 @@
+# Python/Streamlit
+__pycache__/
+*.py[cod]
+.env
+venv/
+.streamlit/
+output files/

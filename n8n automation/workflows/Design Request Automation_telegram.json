@@ -1,0 +1,103 @@
+{
+  "name": "Telegram Design Request Automation (Stable JS)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "chatId": ""
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [-600, 0],
+      "name": "Telegram Trigger"
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { text: $json.message.text, chat_id: $json.message.chat.id, user_id: $json.message.from.id } }];"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [-350, 0],
+      "name": "Extract Request (JS)"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "getAll",
+        "chatId": "={{$json.chat_id}}",
+        "limit": 5
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [-100, 0],
+      "name": "Fetch Recent Files"
+    },
+    {
+      "parameters": {
+        "functionCode": "const videos = items.filter(i => i.json.file && i.json.file.mime_type.includes('video'));\nif (!videos.length) throw new Error('No video found');\nvideos.sort((a,b)=>b.json.date - a.json.date);\nreturn [videos[0]];"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [150, 0],
+      "name": "Pick Latest Video (JS)"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": "={{$json.file.file_id}}"
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [400, 0],
+      "name": "Download Video (Binary)"
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { email: \"customer@example.com\", subject: \"Your Design Request Update\", body: `Hi,\\n\\nHere is the latest design video based on your request:\\n\\n${$json.text}\\n\\nThanks`, filename: \"design.mp4\" }, binary: { data: items[0].binary.data }}];"
+      },
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 0],
+      "name": "Prepare Email (JS)"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "to": "={{$json.email}}",
+        "subject": "={{$json.subject}}",
+        "message": "={{$json.body}}",
+        "attachments": [
+          {
+            "binaryPropertyName": "data",
+            "fileName": "={{$json.filename}}"
+          }
+        ]
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [900, 0],
+      "name": "Send Email with Video"
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{ "node": "Extract Request (JS)", "type": "main" }]]
+    },
+    "Extract Request (JS)": {
+      "main": [[{ "node": "Fetch Recent Files", "type": "main" }]]
+    },
+    "Fetch Recent Files": {
+      "main": [[{ "node": "Pick Latest Video (JS)", "type": "main" }]]
+    },
+    "Pick Latest Video (JS)": {
+      "main": [[{ "node": "Download Video (Binary)", "type": "main" }]]
+    },
+    "Download Video (Binary)": {
+      "main": [[{ "node": "Prepare Email (JS)", "type": "main" }]]
+    },
+    "Prepare Email (JS)": {
+      "main": [[{ "node": "Send Email with Video", "type": "main" }]]
+    }
+  }
+}

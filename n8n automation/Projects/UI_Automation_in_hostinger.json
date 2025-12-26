@@ -1,0 +1,198 @@
+{
+  "name": "UI_Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        288,
+        160
+      ],
+      "id": "ea8d225e-fbe7-40dd-9bcf-264a63c6745e",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e5afa48c-a81a-4c0e-89c0-789d79ce2169",
+              "name": "date_time",
+              "value": "={{$now.toFormat(\"yyyy-MM-dd HH:mm:ss\")}}\n\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        512,
+        160
+      ],
+      "id": "c33152c6-b09c-4742-946a-15c1df03aeaa",
+      "name": "Date and Time"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://plangent-spiffily-bowen.ngrok-free.dev/update-notepad",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "date_time",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1040,
+        160
+      ],
+      "id": "2f5883b8-0900-43fe-aabe-3e612f2d4259",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=convert the data in wordingd: {{ $json.date_time }}\n\n#strictly one line output\n#convert only date into wordings not time\n\nexamples:\n\n 2025-12-04 08:47:18\n 12th December 2025 08:47:18",
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        720,
+        160
+      ],
+      "id": "614be510-3098-4dbf-927d-bb3b6c297484",
+      "name": "Basic LLM Chain"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        656,
+        368
+      ],
+      "id": "a4384891-6236-4116-9df8-ed656aef4c2c",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## UI Automation\n**Notepad**\n\n1. Open notepad\n2. write the date along with time",
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "3f16de70-9cf5-4b8c-a88f-dc480ec3b35c",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Date and Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date and Time": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c70f4193-28be-4a25-a051-082f729ec3c5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "AcJaGmJ94yRfVdcO",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    },
+    {
+      "updatedAt": "2025-12-04T03:50:29.715Z",
+      "createdAt": "2025-12-04T03:50:29.715Z",
+      "id": "udZm3PNy9LzPyqq7",
+      "name": "learning_stage_1"
+    }
+  ]
+}

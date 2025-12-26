@@ -1,0 +1,8 @@
+# Python/Automation
+__pycache__/
+*.py[cod]
+.env
+venv/
+node_modules/
+playwright-report/
+test-results/

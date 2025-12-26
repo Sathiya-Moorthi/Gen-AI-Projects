@@ -1,0 +1,154 @@
+Fallback RAG Chatbot with PDF & Web Search
+
+You are an AI assistant that helps build a **Corrective RAG (Retrieval-Augmented Generation) chatbot** with fallback web search capabilities using **LangChain** and **Streamlit** using Python. The system should implement the following architecture:
+
+### Core Requirements
+
+**1. PDF Document Processing**
+- Accept PDF file uploads through Streamlit interface
+- Extract text from PDFs using PyPDFLoader
+- Split documents into chunks using RecursiveCharacterTextSplitter (chunk_size: 1000-3000, overlap: 200-500)
+- Generate embeddings using HuggingFaceEmbeddings (model: "sentence-transformers/all-MiniLM-L6-v2")
+- Store embeddings in a vector database (Chroma, Qdrant, or FAISS)
+
+**2. Retrieval Evaluator & Confidence Scoring**
+- Implement a retrieval evaluator that assigns confidence scores to retrieved documents[1][2]
+- Set a similarity threshold (default: 0.3-0.5, user-adjustable) to determine document relevance[3]
+- Return top-k documents (default: 3-5) with similarity scores
+- Evaluate if retrieved documents can answer the query based on confidence scores
+
+**3. Fallback Web Search Mechanism**
+- If confidence score < threshold: trigger web search fallback[2][1]
+- Use web search APIs (Tavily, SerpAPI, or DuckDuckGo) for external knowledge[3]
+- Implement query transformation/refinement before web search to improve results[2]
+- Combine web search results with LLM for answer generation
+
+**4. Source Attribution & Reasoning**
+- **For PDF answers**: Display "Source: PDF Document - [filename]" with page numbers and confidence score[3]
+- **For web answers**: Display "Source: Web Search" with URLs and snippets[3]
+- **Reasoning**: Explain why the source was chosen:
+  - "High confidence match (score: X.XX) found in uploaded PDF"
+  - "Low relevance in PDF (score: X.XX, threshold: X.XX), performed web search for current information"
+  - "Query requires external/updated information not available in PDF"
+
+### Implementation Architecture
+
+```python
+# Core Components Structure
+
+class RetrievalEvaluator:
+    """Evaluates retrieved documents and assigns confidence scores"""
+    def evaluate_relevance(query, documents, scores):
+        # Return confidence decision: 'local', 'web', or 'ambiguous'
+        
+class QueryTransformer:
+    """Refines ambiguous queries for better retrieval"""
+    def transform_query(original_query, context):
+        # Rewrite query for improved search results
+        
+class FallbackRAG:
+    """Main RAG system with fallback logic"""
+    def __init__(self, llm, vectorstore, similarity_threshold):
+        self.evaluator = RetrievalEvaluator()
+        self.transformer = QueryTransformer()
+        
+    def generate_answer(self, query):
+        # 1. Retrieve from PDF vector store
+        # 2. Evaluate confidence
+        # 3. If low: transform query + web search
+        # 4. Generate answer with source attribution
+        # 5. Return answer + reasoning
+```
+
+### LangGraph Workflow (State Machine)
+
+Implement conditional workflow using LangGraph for dynamic decision-making:[1][2]
+
+1. **Retrieval Node**: Query vector database
+2. **Evaluation Node**: Check confidence scores
+3. **Decision Node**: 
+   - High confidence → Generate from PDF
+   - Low confidence → Query Transformation Node → Web Search Node
+   - Ambiguous → Combine PDF + Web results
+4. **Generation Node**: Create final answer with source attribution
+
+### Streamlit Frontend Requirements
+
+```python
+# Key UI Components
+
+st.title("Fallback RAG Chatbot")
+
+# PDF Upload Section
+uploaded_files = st.file_uploader("Upload PDFs", type="pdf", accept_multiple_files=True)
+similarity_threshold = st.slider("Confidence Threshold", 0.0, 1.0, 0.4)
+
+# Chat Interface
+user_query = st.chat_input("Ask a question...")
+
+# Display Answer with Source Attribution
+if answer_source == "pdf":
+    st.success(f"📄 Source: PDF Document")
+    st.info(f"Confidence Score: {score:.2f}")
+    st.write(f"Reasoning: High relevance match in {filename}")
+elif answer_source == "web":
+    st.warning(f"🌐 Source: Web Search")
+    st.info(f"PDF Confidence: {score:.2f} (Below threshold: {threshold})")
+    st.write(f"Reasoning: Required external/updated information")
+
+# Show Retrieved Chunks
+with st.expander("View Retrieved Context"):
+    st.write(retrieved_documents)
+```
+
+### Response Format Template
+
+```
+Answer: [Generated answer here]
+
+📍 Source: [PDF Document / Web Search / Both]
+
+🎯 Confidence Score: [0.XX for PDF retrieval]
+
+💡 Reasoning:
+- [PDF] High semantic similarity (0.82) found in "document.pdf" (Page 3-4)
+  OR
+- [Web] Low PDF relevance (0.23 < threshold 0.40), performed web search for current information
+  OR  
+- [Both] Partial match in PDF (0.55) supplemented with web search for completeness
+
+📚 Retrieved Context:
+[Show top-k chunks with sources]
+```
+
+### Key Libraries & Dependencies
+
+```python
+# Required installations
+pip install langchain langchain-community
+pip install streamlit
+pip install pypdf sentence-transformers
+pip install chromadb # or qdrant-client or faiss-cpu
+pip install tavily-python # or serpapi or duckduckgo-search
+pip install langchain-openai # or langchain-ollama for local LLM
+```
+
+### Best Practices
+
+1. **Chunk Strategy**: Use semantic chunking with overlap to maintain context[4][3]
+2. **Embedding Model**: Use lightweight models (all-MiniLM-L6-v2) for speed[3]
+3. **Threshold Tuning**: Make similarity threshold user-adjustable for different use cases[3]
+4. **Query Refinement**: Transform queries before fallback search to improve results[1][2]
+5. **Caching**: Cache embeddings and vector store to avoid reprocessing[5]
+6. **Session State**: Use Streamlit session state to persist chat history and uploaded documents[5]
+7. **Error Handling**: Implement fallbacks if web search fails or PDF processing errors occur[3]
+
+### Advanced Features
+
+- **Hybrid Retrieval**: Combine dense (semantic) and sparse (keyword) retrieval[2]
+- **Re-ranking**: Add a re-ranker model to improve relevance of retrieved chunks[2]
+- **Multi-query**: Generate multiple query variations for better coverage[2]
+- **Citation Tracking**: Extract and display exact page numbers from PDFs[3]
+- **Streaming Responses**: Use LLM streaming for real-time answer generation[5]
+
+***

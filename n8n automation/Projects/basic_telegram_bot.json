@@ -1,0 +1,145 @@
+{
+  "name": "basic_telegram_bot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "7e2b1acd-9b49-48f5-9a02-f9993d02426d",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "position": [
+        -320,
+        -96
+      ],
+      "webhookId": "9bf61652-efa6-47b0-9f52-e0c3362d93e5",
+      "typeVersion": 1.1,
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.text }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "a1ec6fdf-2282-4e9f-8e39-6d9802cc0d6d",
+      "name": "Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "position": [
+        272,
+        -96
+      ],
+      "webhookId": "5babdcad-dabe-4c8e-8f84-6957e9f1aa15",
+      "typeVersion": 1.2,
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "id": "27492283-a6f5-46f1-9ab4-92264ce7ad85",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        -144,
+        128
+      ],
+      "typeVersion": 1.2,
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Reply to the user query: {{ $json.message.text }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "you're an skilled personal assistant"
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.7,
+      "position": [
+        -112,
+        -96
+      ],
+      "id": "ddf054be-c5f2-4004-832b-de998cf9d15c",
+      "name": "Basic LLM Chain"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Basic LLM Chain": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "40815f1a-1280-4961-8549-1ba17b584620",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "uUAosntIt43yGXEb",
+  "tags": []
+}

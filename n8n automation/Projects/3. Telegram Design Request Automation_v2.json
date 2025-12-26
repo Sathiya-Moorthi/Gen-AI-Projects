@@ -1,0 +1,182 @@
+{
+  "name": "3. Telegram Design Request Automation_v2",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "chat",
+        "model": "o4-mini",
+        "prompt": {
+          "messages": [
+            {
+              "content": "=Write short high-conversion promotional copy for this request: {{$json.request}} Return maximum 2 lines in english language."
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        448
+      ],
+      "name": "Generate Promo Copy",
+      "id": "d433343e-b593-4907-b6ee-b892c1e2ed50",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "model": "dall-e-2",
+        "prompt": "=Create a clean, professional promotional poster.\n\nSTRICT TEXT RULES (must follow exactly):\n- Main heading text must be exactly: {{ $json.message.content }}\" OFF\"\n- Subtext must be exactly: \"On Al{{ $json.message.content }}l \"\n- Call-to-action must be exactly: \"Limited Time Offer\"\n\nDESIGN REQUIREMENTS:\n- Modern e-commerce style\n- High-contrast red and white theme\n- Realistic product image of{{ $json.message.content }}  in center\n- No extra words\n- No misspellings\n- No invented slogans\n\nOutput size: 1024x1024",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        112,
+        448
+      ],
+      "id": "3f2b1b4f-6ace-4fa1-a96e-7de4d9359ce2",
+      "name": "Generate Promo Image",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        448
+      ],
+      "name": "Telegram Trigger1",
+      "id": "5197759c-2257-49a1-9972-89f337d23b21",
+      "webhookId": "10450e77-ae39-409f-a5d4-40c335d663aa",
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.message.text;\nreturn [{ request: text }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -400,
+        448
+      ],
+      "name": "Extract Request1",
+      "id": "6c41eb2e-bc27-45d7-8212-28b5074e55d7"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "1056849949",
+        "binaryData": true,
+        "additionalFields": {
+          "caption": "=={{$node[\"Generate Promo Copy\"].json.message.content}}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        384,
+        448
+      ],
+      "name": "Send Promo Poster1",
+      "id": "1a2f0ac9-f0e9-4884-a580-f65e3cad47e5",
+      "webhookId": "749d1194-614f-4dca-a7a8-7837c1070583",
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Generate Promo Copy": {
+      "main": [
+        [
+          {
+            "node": "Generate Promo Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Promo Image": {
+      "main": [
+        [
+          {
+            "node": "Send Promo Poster1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Extract Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Request1": {
+      "main": [
+        [
+          {
+            "node": "Generate Promo Copy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c64753b4-fc2d-42f7-bb0d-5452f2274597",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "KyjFbPoOf1LvMPCT",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    }
+  ]
+}

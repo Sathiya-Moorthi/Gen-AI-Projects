@@ -1,0 +1,450 @@
+{
+  "name": "learning_file_operations_nodes",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -32
+      ],
+      "id": "4cd5d4eb-b15e-4b60-a29d-ddeb025e513e",
+      "name": "When clicking ‘Execute workflow’",
+      "alwaysOutputData": false,
+      "notesInFlow": false
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"customers\": [\n    {\n      \"customer_id\": \"CUST001\",\n      \"name\": \"Arun Kumar\",\n      \"age\": 32,\n      \"email\": \"arun.kumar@example.com\",\n      \"phone\": \"+91 9876543210\",\n      \"city\": \"Chennai\",\n      \"state\": \"Tamil Nadu\",\n      \"is_active\": true,\n      \"orders\": [\n        {\n          \"order_id\": \"ORD101\",\n          \"amount\": 1500.75,\n          \"order_date\": \"2024-11-05\"\n        },\n        {\n          \"order_id\": \"ORD145\",\n          \"amount\": 2200.00,\n          \"order_date\": \"2024-12-01\"\n        }\n      ]\n    },\n    {\n      \"customer_id\": \"CUST002\",\n      \"name\": \"Priya Sharma\",\n      \"age\": 27,\n      \"email\": \"priya.sharma@example.com\",\n      \"phone\": \"+91 9123456780\",\n      \"city\": \"Bengaluru\",\n      \"state\": \"Karnataka\",\n      \"is_active\": false,\n      \"orders\": [\n        {\n          \"order_id\": \"ORD202\",\n          \"amount\": 899.50,\n          \"order_date\": \"2024-10-11\"\n        }\n      ]\n    },\n    {\n      \"customer_id\": \"CUST003\",\n      \"name\": \"Rahul Verma\",\n      \"age\": 41,\n      \"email\": \"rahul.verma@example.com\",\n      \"phone\": \"+91 9988776655\",\n      \"city\": \"Mumbai\",\n      \"state\": \"Maharashtra\",\n      \"is_active\": true,\n      \"orders\": []\n    },\n    {\n      \"customer_id\": \"CUST004\",\n      \"name\": \"Sneha Nair\",\n      \"age\": 29,\n      \"email\": \"sneha.nair@example.com\",\n      \"phone\": \"+91 9090909090\",\n      \"city\": \"Kochi\",\n      \"state\": \"Kerala\",\n      \"is_active\": true,\n      \"orders\": [\n        {\n          \"order_id\": \"ORD350\",\n          \"amount\": 1200.00,\n          \"order_date\": \"2024-12-10\"\n        },\n        {\n          \"order_id\": \"ORD351\",\n          \"amount\": 450.25\",\n          \"order_date\": \"2024-12-12\"\n        }\n      ]\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -128,
+        -32
+      ],
+      "id": "67643f71-20f0-48db-a327-c2a81c70decd",
+      "name": "JSON Input",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {
+          "fileName": "myfile.json"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        96,
+        -32
+      ],
+      "id": "a03feb89-8cfd-4fc3-8c76-6f3a1cf1c0c7",
+      "name": "Convert to JSON"
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        352,
+        -32
+      ],
+      "id": "16ddeb99-c261-41b0-8a58-400d5e4375de",
+      "name": "Extract JSON File"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items[0].json.customers.map(c => ({ json: c }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        224
+      ],
+      "id": "22f8fab3-7f7b-4925-8e7a-2f75a39766f7",
+      "name": "convert JSON to CSV"
+    },
+    {
+      "parameters": {
+        "options": {
+          "encoding": "utf-8"
+        }
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        592,
+        224
+      ],
+      "id": "5991d024-95bd-46a4-95b9-93ca4b762819",
+      "name": "Extract CSV File"
+    },
+    {
+      "parameters": {
+        "options": {
+          "fileName": "myfile.csv"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        224
+      ],
+      "id": "c23b5dbe-fd5a-4690-9ad6-59cce98f625c",
+      "name": "Convert to CSV Format"
+    },
+    {
+      "parameters": {
+        "jsCode": "const jsonData = items[0].json.customers;   // or your full JSON\n\nreturn [\n  {\n    json: {\n      fileContent: JSON.stringify(jsonData, null, 2)\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        432
+      ],
+      "id": "2b527894-dc7b-40af-bd2d-715f98d6d6f3",
+      "name": "convert JSON to Text"
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "options": {
+          "encoding": "utf8"
+        }
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        624,
+        432
+      ],
+      "id": "6c52c42d-f71f-4483-a989-c16bc4de2c21",
+      "name": "Extract Text File"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "sourceProperty": "fileContent",
+        "options": {
+          "fileName": "my_text_file.txt"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        432
+      ],
+      "id": "03dd2d9f-4418-419a-90b3-f23a251a8a2e",
+      "name": "Convert to Text File"
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {
+          "fileName": "my_HTML_file.html"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        112,
+        656
+      ],
+      "id": "14f10607-55e7-400b-b8ed-94c9a3afc9a1",
+      "name": "Convert to HTML Format"
+    },
+    {
+      "parameters": {
+        "operation": "html",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        368,
+        656
+      ],
+      "id": "14da73c7-eaeb-498f-877e-5a20ad1a3528",
+      "name": "Extract HTML File"
+    },
+    {
+      "parameters": {
+        "mode": "markdownToHtml",
+        "markdown": "={{ $json.html }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        528,
+        864
+      ],
+      "id": "33faba42-9461-4284-b909-8ea9fcb52974",
+      "name": "Markdown1"
+    },
+    {
+      "parameters": {
+        "html": "=const data = items[0].json.customers;\n\nlet md = `# Customer Report\\n\\n`;\ndata.forEach((c, i) => {\n  md += `## Customer ${i+1}\\n`;\n  md += `- **ID:** ${c.customer_id}\\n`;\n  md += `- **Name:** ${c.name}\\n`;\n  md += `- **Age:** ${c.age}\\n`;\n  md += `- **City:** ${c.city}\\n`;\n  md += `- **Active:** ${c.is_active}\\n\\n`;\n});\n\nreturn [{ json: { md } }];\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.markdown",
+      "typeVersion": 1,
+      "position": [
+        320,
+        864
+      ],
+      "id": "23e6db69-21e9-4c2a-bd8b-0fd00708cef7",
+      "name": "Markdown"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = items[0].json.customers; // your full JSON array\n\nlet html = `\n<h2>Customer Report</h2>\n<pre>${JSON.stringify(data, null, 2)}</pre>\n`;\n\nreturn [\n  {\n    json: { html }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        112,
+        864
+      ],
+      "id": "986936db-5e2f-4752-bb97-3260c845a4c5",
+      "name": "convert JSON into HTML"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "options": {
+          "fileName": "my_excel_file"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        1104
+      ],
+      "id": "ce46f8fc-119d-4613-bcab-7f726a8ab405",
+      "name": "Convert to Excel"
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        512,
+        1104
+      ],
+      "id": "87c206fa-93ad-4533-b685-ed9a95c330f9",
+      "name": "Extract to Excel File"
+    },
+    {
+      "parameters": {
+        "jsCode": "return items[0].json.customers.map(c => ({ json: c }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        1104
+      ],
+      "id": "73313eef-3122-4d93-af83-307240a204e1",
+      "name": "convert JSON into Excel"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "JSON Input": {
+      "main": [
+        [
+          {
+            "node": "Convert to JSON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "convert JSON to CSV",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "convert JSON to Text",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Convert to HTML Format",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "convert JSON into HTML",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "convert JSON into Excel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to JSON": {
+      "main": [
+        [
+          {
+            "node": "Extract JSON File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "convert JSON to CSV": {
+      "main": [
+        [
+          {
+            "node": "Convert to CSV Format",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to CSV Format": {
+      "main": [
+        [
+          {
+            "node": "Extract CSV File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "convert JSON to Text": {
+      "main": [
+        [
+          {
+            "node": "Convert to Text File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to Text File": {
+      "main": [
+        [
+          {
+            "node": "Extract Text File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to HTML Format": {
+      "main": [
+        [
+          {
+            "node": "Extract HTML File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract HTML File": {
+      "main": [
+        []
+      ]
+    },
+    "Extract CSV File": {
+      "main": [
+        []
+      ]
+    },
+    "Markdown": {
+      "main": [
+        [
+          {
+            "node": "Markdown1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "convert JSON into HTML": {
+      "main": [
+        [
+          {
+            "node": "Markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to Excel": {
+      "main": [
+        [
+          {
+            "node": "Extract to Excel File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "convert JSON into Excel": {
+      "main": [
+        [
+          {
+            "node": "Convert to Excel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1ca11400-b41e-433b-831e-77b14733d4f6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "VpMK6kqLTgN882h0",
+  "tags": [
+    {
+      "updatedAt": "2025-12-03T03:53:53.800Z",
+      "createdAt": "2025-12-03T03:53:53.800Z",
+      "id": "M5mS4fehJg69gP7X",
+      "name": "learning"
+    }
+  ]
+}

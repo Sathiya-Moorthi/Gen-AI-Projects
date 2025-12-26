@@ -1,0 +1,217 @@
+/* Modern gradient background */
+.stApp {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Remove default padding */
+.main > div {
+    padding-top: 2rem;
+}
+
+/* Chat container */
+.chat-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* User message bubble */
+.user-message {
+    background: #4A5568;
+    color: white;
+    border-radius: 18px;
+    padding: 14px 20px;
+    margin: 10px 0;
+    max-width: 70%;
+    margin-left: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    word-wrap: break-word;
+}
+
+/* AI message bubble */
+.ai-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 18px;
+    padding: 16px 22px;
+    margin: 10px 0;
+    max-width: 80%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    word-wrap: break-word;
+}
+
+/* Source attribution card */
+.source-card {
+    background: rgba(255,255,255,0.95);
+    border-left: 4px solid #48BB78;
+    border-radius: 10px;
+    padding: 18px;
+    margin: 16px 0;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.source-card.web {
+    border-left-color: #9F7AEA;
+}
+
+/* Confidence badge */
+.confidence-badge {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 14px;
+    font-size: 0.8em;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 8px;
+}
+
+.badge-high {
+    background: #48BB78;
+    color: white;
+}
+
+.badge-medium {
+    background: #ECC94B;
+    color: #2D3748;
+}
+
+.badge-low {
+    background: #F56565;
+    color: white;
+}
+
+/* File upload area */
+.upload-area {
+    border: 2px dashed #CBD5E0;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.9);
+    margin: 10px 0;
+}
+
+.upload-area:hover {
+    border-color: #667eea;
+    background: rgba(255,255,255,1);
+}
+
+/* Source chunk display */
+.source-chunk {
+    background: #F7FAFC;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #E2E8F0;
+}
+
+.chunk-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #2D3748;
+}
+
+.chunk-meta {
+    font-size: 0.85em;
+    color: #718096;
+    margin-bottom: 8px;
+}
+
+.chunk-content {
+    font-size: 0.9em;
+    color: #4A5568;
+    line-height: 1.5;
+}
+
+/* Sidebar styling */
+.css-1d391kg {
+    background: rgba(255,255,255,0.95);
+}
+
+/* Status indicators */
+.status-success {
+    color: #48BB78;
+    font-weight: 600;
+}
+
+.status-processing {
+    color: #4299E1;
+    font-weight: 600;
+}
+
+.status-error {
+    color: #F56565;
+    font-weight: 600;
+}
+
+/* Reasoning card */
+.reasoning-card {
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 14px;
+    margin: 12px 0;
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Button styling */
+.stButton > button {
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Input box */
+.stTextInput > div > div > input {
+    border-radius: 10px;
+    border: 2px solid #E2E8F0;
+    padding: 12px;
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-container {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Loading indicator */
+.loading-dots {
+    display: inline-block;
+}
+
+.loading-dots::after {
+    content: '...';
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}

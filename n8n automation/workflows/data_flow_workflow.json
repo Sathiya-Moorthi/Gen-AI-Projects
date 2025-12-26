@@ -1,0 +1,291 @@
+{
+  "name": "data_flow_workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1728,
+        160
+      ],
+      "id": "49c7faf3-dd32-4c83-864c-04b2e376f817",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "batchSize": 4,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -1040,
+        160
+      ],
+      "id": "50f21959-d027-4b15-94a8-05e4b4a6e74e",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b0b582d4-c097-4d21-8150-20eac8d0e888",
+              "leftValue": "={{ $json.age }}",
+              "rightValue": 25,
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -816,
+        176
+      ],
+      "id": "d54b67e1-78ab-4587-9073-977719bee9bd",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d59832e6-828e-4207-8e5f-c3bebb554828",
+              "name": "",
+              "value": "[\n\n{\n\"name\": \"A\",\n\"city\": \"Erode\",\n\"age\": 30\n},\n\n{\n\"name\": \"B\",\n\"city\": \"Salem\",\n\"age\": 20\n},\n\n{\n\"name\": \"C\",\n\"city\": \"Chennai\",\n\"age\": 10\n},\n\n{\n\"name\": \"D\",\n\"city\": \"Bangalore\",\n\"age\": 40\n}\n\n]",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1456,
+        160
+      ],
+      "id": "2e221886-5909-498b-a339-eff6386c34c8",
+      "name": "Input Given"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get the string that contains the JSON array\nconst jsonString = items[0].json[\"\"];\n\n// Parse the JSON string into an array\nconst dataArray = JSON.parse(jsonString);\n\n// Return each object as a separate item in n8n\nreturn dataArray.map(entry => ({ json: entry }));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1248,
+        160
+      ],
+      "id": "a1194680-d88c-49b5-9ab3-d6ec61b48637",
+      "name": "Split into Separate Items"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e51523f4-337e-4888-9bf4-063b785a4998",
+              "name": "Status",
+              "value": "Workflow run successfully",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -144
+      ],
+      "id": "d7143900-ba4c-4ba9-b57b-6523fefbe397",
+      "name": "Final Status of Workflow"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f0b06275-8726-4bad-92a7-43a5ec9d69e0",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "5917b6a1-7274-4e13-a2e4-76ffcf801801",
+              "name": "Result",
+              "value": "Old People",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -544,
+        -176
+      ],
+      "id": "466844fa-5475-45ed-9b69-8ddb84f824e5",
+      "name": "Old people condition check"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d23d9832-b049-4371-bf8c-517ea2ba879b",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "f589bcae-f647-4489-a3eb-4bbaab6d4376",
+              "name": "Result",
+              "value": "Young People",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -512,
+        256
+      ],
+      "id": "88a00785-7b78-462b-a9be-fc7694cc7d5b",
+      "name": "Young people condition check"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Input Given",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Final Status of Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Old people condition check",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Young people condition check",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Input Given": {
+      "main": [
+        [
+          {
+            "node": "Split into Separate Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split into Separate Items": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Old people condition check": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Young people condition check": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "741d8d34-9d81-46e9-957b-f2a1ddb9e64e",
+  "meta": {
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "qVD4lqpQ4eJwMBr3",
+  "tags": [
+    {
+      "updatedAt": "2025-12-02T16:12:04.363Z",
+      "createdAt": "2025-12-02T16:12:04.363Z",
+      "id": "fqbFQVybXfLI0gZQ",
+      "name": "learning_stage_1"
+    }
+  ]
+}

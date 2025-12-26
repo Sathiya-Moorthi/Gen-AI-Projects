@@ -1,0 +1,60 @@
+{
+  "name": "learning_code_node",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a19e1f46-bf8f-4948-985a-4c8cce9b3d16",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get current date & time\nconst now = new Date();\n\n// Format date as DD/MM/YYYY\nconst dd = String(now.getDate()).padStart(2, '0');\nconst mm = String(now.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed\nconst yyyy = now.getFullYear();\nconst formattedDate = `${dd}/${mm}/${yyyy}`;\n\n// Format time as HH:MM:SS\nconst hh = String(now.getHours()).padStart(2, '0');\nconst min = String(now.getMinutes()).padStart(2, '0');\nconst ss = String(now.getSeconds()).padStart(2, '0');\nconst formattedTime = `${hh}:${min}:${ss}`;\n\n// Get day name\nconst days = [\"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\"];\nconst dayName = days[now.getDay()];\n\nreturn [\n  {\n    json: {\n      date: formattedDate,\n      time: formattedTime,\n      day: dayName\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "e3be0308-fc02-489c-a99b-5c2db99f5228",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b1564e81-b95f-4f81-be7c-439e4f1b297e",
+  "meta": {
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "vXcJQlFds37IVitI",
+  "tags": [
+    {
+      "updatedAt": "2025-12-02T14:53:26.042Z",
+      "createdAt": "2025-12-02T14:53:26.042Z",
+      "id": "NY7D5NSs8KNMhOsQ",
+      "name": "learning"
+    }
+  ]
+}

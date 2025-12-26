@@ -1,0 +1,96 @@
+##PRD Prompt :
+
+You are a SENIOR PRODUCT DESIGNER and FULL-STACK ARCHITECT.
+
+Design and generate a HIGHLY PROFESSIONAL, PRODUCTION-READY WEB APPLICATION
+for my first AI Agent called:
+
+"AI Birthday Wishes Agent"
+
+🎯 PRODUCT GOAL
+Build a simple, elegant landing page that allows a user to enter a text prompt
+and trigger an AI agent that sends birthday wishes via Gmail.
+The app must show real-time request status clearly on the webpage.
+
+────────────────────────
+CORE FUNCTIONALITY
+────────────────────────
+1. Landing Page UI
+   - Clean, modern, enterprise-grade design
+   - Single page layout
+   - Professional typography and spacing
+   - Mobile-responsive
+   - Light theme (white / subtle grey)
+   - Minimal animations for button and status
+
+2. User Input
+   - A large text input field labeled:
+     “Enter your request”
+   - Placeholder example:
+     “Send a birthday wish to s58083061@gmail.com”
+   - A primary CTA button:
+     “Send Birthday Wish”
+
+3. Backend Integration
+   - On button click, make an HTTP POST request
+   - Webhook URL:
+     https://n8n.srv1170819.hstgr.cloud/webhook/first-agent
+   - HTTP Method:
+     POST
+   - Request Payload (JSON):
+     {
+       "query": "Send a birthday wish to s58083061@gmail.com"
+     }
+
+4. Status Rendering (VERY IMPORTANT)
+   - Show request lifecycle clearly on the webpage:
+     - ⏳ Sending request...
+     - ✅ Birthday wish sent successfully
+     - ❌ Failed to send birthday wish
+   - Status must update dynamically based on webhook response
+   - Display success or error message in a clean alert card
+
+────────────────────────
+NON-FUNCTIONAL REQUIREMENTS
+────────────────────────
+- Production-ready code
+- Proper error handling
+- Input validation (empty prompt not allowed)
+- Loading indicator while request is processing
+- No console errors
+- Clean, readable, maintainable code
+
+────────────────────────
+TECHNICAL REQUIREMENTS
+────────────────────────
+- Use modern frontend stack:
+  - HTML5
+  - CSS3 (or Tailwind / modern CSS framework)
+  - JavaScript (Vanilla / React acceptable)
+- No hard-coded values except webhook URL
+- API request must use fetch()
+- Handle JSON responses safely
+- CORS-safe implementation
+
+────────────────────────
+UX COPY REQUIREMENTS
+────────────────────────
+- Headline:
+  “Send Birthday Wishes Instantly with AI 🎉”
+- Subheading:
+  “Just type a simple request and let the AI handle the rest.”
+- Button text:
+  “Send Birthday Wish”
+- Status messages must be human-friendly and professional
+
+────────────────────────
+DELIVERABLES
+────────────────────────
+1. Complete frontend code (ready to deploy)
+2. Clear UI structure
+3. Production-ready app behavior
+4. No placeholders or pseudo-code
+5. No explanations — output only the final app
+
+You must think like a REAL PRODUCT TEAM.
+The output must look like a REAL SaaS landing page, not a demo.

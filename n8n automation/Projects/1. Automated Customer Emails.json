@@ -1,0 +1,213 @@
+{
+  "name": "1. Automated Customer Emails",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a27eac23-496c-42fc-b279-ba7ba3e4ad41",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            },
+            {
+              "id": "deb41647-a4d5-4b16-8f58-f5dc034990aa",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "f0a97c85-d1f8-4b30-ac5c-1a1711f91cf6",
+              "name": "email_body",
+              "value": "={{\n`\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Welcome</title>\n</head>\n<body style=\"margin:0; padding:0; background-color:#f4f6f8; font-family:Arial, sans-serif;\">\n\n  <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background-color:#f4f6f8; padding:30px 0;\">\n    <tr>\n      <td align=\"center\">\n\n        <!-- MAIN CONTAINER -->\n        <table width=\"600\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff; border-radius:10px; overflow:hidden; box-shadow:0 4px 10px rgba(0,0,0,0.08);\">\n          \n          <!-- HEADER -->\n          <tr>\n            <td style=\"background:#2563eb; padding:20px 30px; color:white; font-size:22px; font-weight:bold;\">\n              Welcome to Our Platform 🚀\n            </td>\n          </tr>\n\n          <!-- BODY -->\n          <tr>\n            <td style=\"padding:30px; color:#333333; font-size:15px; line-height:1.6;\">\n\n              <p>Hi <strong>${$json.name || \"Customer\"}</strong>,</p>\n\n              <p>\n                We’re excited to officially welcome you to our platform! 🎉  \n                You’re now part of a community that values speed, reliability, and innovation.\n              </p>\n\n              <p style=\"background:#f1f5f9; padding:15px; border-left:4px solid #2563eb; border-radius:5px;\">\n                <strong>Your Exclusive Welcome Offer:</strong><br>\n                <span style=\"font-size:18px; color:#2563eb; font-weight:bold;\">${$json.offer || \"Special Discount\"}</span>\n              </p>\n\n              <p>\n                You can start exploring all features immediately and make the most out of your benefits.\n              </p>\n\n              <!-- CTA BUTTON -->\n              <p style=\"text-align:center; margin:30px 0;\">\n                <a href=\"https://your-website.com\" \n                   style=\"background:#2563eb; color:#ffffff; text-decoration:none; padding:14px 28px; border-radius:6px; font-weight:bold; display:inline-block;\">\n                  Get Started Now\n                </a>\n              </p>\n\n              <p>\n                If you have any questions, our support team is always happy to help.\n              </p>\n\n              <p style=\"margin-top:30px;\">\n                Warm regards,<br>\n                <strong>Customer Success Team</strong><br>\n                Your Company Name\n              </p>\n\n            </td>\n          </tr>\n\n          <!-- FOOTER -->\n          <tr>\n            <td style=\"background:#f8fafc; padding:15px 30px; font-size:12px; color:#777777; text-align:center;\">\n              © ${new Date().getFullYear()} Your Company Name. All rights reserved.<br>\n              This is an automated email. Please do not reply.\n            </td>\n          </tr>\n\n        </table>\n\n      </td>\n    </tr>\n  </table>\n\n</body>\n</html>\n`\n}}\n",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        288,
+        -16
+      ],
+      "id": "2fe30606-8e56-4b4c-9bf0-4560cfd44da2",
+      "name": "Create Personalized Email Text"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        0,
+        -32
+      ],
+      "id": "b7bd3c14-779d-4eb8-b3de-90bbeee03ab5",
+      "name": "Process 1 Customer at a Time"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ String($json.email) }}",
+        "subject": "={{ \"Welcome, \" + ($json.name || \"Customer\") + \"!\" }}",
+        "message": "={{ String($json.email_body) }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        640,
+        -16
+      ],
+      "id": "8f088f78-8185-4857-a573-411745496d82",
+      "name": "Send a email",
+      "webhookId": "d7a4e052-fd94-449a-8243-9f0c8676c376",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1_1I0y5XLAkeoUS_y6_uOTee9xaB2GN_wIL77Mm3vnLk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1_1I0y5XLAkeoUS_y6_uOTee9xaB2GN_wIL77Mm3vnLk/edit?gid=0#gid=0",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -208,
+        -32
+      ],
+      "id": "a75c8157-7897-4d38-bc9c-ada925ff24d9",
+      "name": "Get row(s) in google sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "ZpLb0Ykr143nrI6o",
+          "name": "Google Sheets – Main"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -416,
+        -32
+      ],
+      "id": "4bc5bd18-108e-4d07-8bf8-4661bbf18086",
+      "name": "Manual trigger"
+    },
+    {
+      "parameters": {
+        "content": "# 📘 Automated Customer Emails – Workflow Documentation\n\n## 🔹 Workflow Name\n\n**Automated Customer Welcome Emails**\n\n## 🔹 Purpose\n\nThis workflow automatically sends **personalized welcome emails** to customers listed in a Google Sheet. Each customer receives a customized email containing their name and a tailored message. The workflow can be triggered manually or on a schedule.\n\n---\n\n## 🔹 High-Level Process Flow\n\n1. The workflow is triggered manually or by a scheduler.\n2. Customer data (Name, Email, Email Body) is fetched from a Google Sheet.\n3. Customers are processed **one at a time** to avoid rate limits.\n4. A personalized email subject and body are dynamically generated.\n5. A formatted **HTML email** is sent to each customer via Gmail.\n6. The workflow completes after all customers are processed.\n\n---\n\n## 🔹 Nodes Used & Their Role\n\n### ✅ Manual Trigger / Schedule Trigger\n\nStarts the workflow execution.\n\n### ✅ Google Sheets – Get Rows\n\nFetches customer details such as:\n\n* Name\n* Email\n* Email content\n\n### ✅ Split In Batches\n\nProcesses one customer at a time to:\n\n* Prevent Gmail rate limits\n* Ensure reliable email delivery\n\n### ✅ Set / Create Personalized Email Text\n\nBuilds:\n\n* Dynamic subject line\n* Personalized email body using customer name and content\n\n### ✅ Gmail – Send Email\n\nSends the final personalized HTML email to each customer.\n\n---\n\n## 🔹 Key Business Value\n\n* Eliminates manual bulk emailing\n* Ensures consistent and professional communication\n* Supports scalable customer onboarding\n* Reduces operational overhead\n\n---\n\n## 🔹 Safety & Controls\n\n* Dynamic expressions prevent wrong email addressing\n* Batch processing prevents API overloading\n* Supports test-mode filtering before production deployment\n\n---\n\n## 🔹 Final Outcome\n\n✅ Each customer receives a professional, personalized welcome email automatically\n✅ No manual intervention required\n✅ Fully scalable and reusable",
+        "height": 80,
+        "width": 1040
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -384,
+        -256
+      ],
+      "id": "b3f667fd-753b-4ab7-babb-163eac3d4b79",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Create Personalized Email Text": {
+      "main": [
+        [
+          {
+            "node": "Send a email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Process 1 Customer at a Time": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Create Personalized Email Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a email": {
+      "main": [
+        [
+          {
+            "node": "Process 1 Customer at a Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in google sheet": {
+      "main": [
+        [
+          {
+            "node": "Process 1 Customer at a Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in google sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Asia/Kolkata",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "6adcabc6-1c2c-4ab8-aabd-a2f57a72cfd3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "C7Hp3iUY2Sppkkje",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    }
+  ]
+}

@@ -1,0 +1,225 @@
+{
+  "name": "condition_operation_flow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        -32
+      ],
+      "id": "2d85e22e-d58e-457d-960b-6f410abd4421",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "fc0e48cf-4121-4de5-9d16-55a12620610b",
+              "leftValue": "={{ $json.A }}",
+              "rightValue": "={{ $json.B }}",
+              "operator": {
+                "type": "dateTime",
+                "operation": "notEquals"
+              }
+            },
+            {
+              "id": "49a6d308-7803-4baf-9519-51d2887d6d8d",
+              "leftValue": "={{ $json.A }}",
+              "rightValue": "={{ $json.B }}",
+              "operator": {
+                "type": "number",
+                "operation": "notEquals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -96,
+        -32
+      ],
+      "id": "0607c346-c57c-4a75-8463-4de7c2b853c4",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.A }}",
+                    "rightValue": "={{ $json.B }}",
+                    "operator": {
+                      "type": "number",
+                      "operation": "lt"
+                    },
+                    "id": "f2bb8225-317f-4633-ba81-ab4b989b32ec"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        192,
+        -128
+      ],
+      "id": "ba73bfcc-b447-438d-9e68-58fe55e4638e",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Giving Output').item.json.B }}",
+                    "rightValue": "={{ $('Giving Output').item.json.A }}",
+                    "operator": {
+                      "type": "number",
+                      "operation": "gt"
+                    },
+                    "id": "19dee927-0518-4b4c-b0ec-84053f3591d8"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        208,
+        80
+      ],
+      "id": "c6f48ee4-a574-488a-a3af-57d8eb6b330a",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f03fa34f-43de-4ba2-bca1-0ef376c8f932",
+              "name": "A",
+              "value": 5,
+              "type": "number"
+            },
+            {
+              "id": "060035f3-c16f-4f34-a483-e34231d86d5b",
+              "name": "B",
+              "value": 10,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        -32
+      ],
+      "id": "f0a955d2-a535-429f-95aa-aa75f2d4fcf2",
+      "name": "Giving Output"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Giving Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Giving Output": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "00eb3983-fb76-4771-9dcb-24e2588f713a",
+  "meta": {
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "UuFcq6iownLEdJLf",
+  "tags": [
+    {
+      "updatedAt": "2025-12-03T03:53:53.800Z",
+      "createdAt": "2025-12-03T03:53:53.800Z",
+      "id": "M5mS4fehJg69gP7X",
+      "name": "learning"
+    }
+  ]
+}

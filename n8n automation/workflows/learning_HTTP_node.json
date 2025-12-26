@@ -1,0 +1,61 @@
+{
+  "name": "learning_HTTP_node",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        16,
+        0
+      ],
+      "id": "f400b614-ab45-4bc2-987b-6f0111e5f06a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "https://jsonplaceholder.typicode.com/posts/1",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        224,
+        0
+      ],
+      "id": "1183a37a-2f14-4140-a99a-51abc8d0af12",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b09bf847-688a-4323-bf06-5aaa8241b446",
+  "meta": {
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "49xFhJ2T5yaCO2Z5",
+  "tags": [
+    {
+      "updatedAt": "2025-12-02T14:53:26.042Z",
+      "createdAt": "2025-12-02T14:53:26.042Z",
+      "id": "NY7D5NSs8KNMhOsQ",
+      "name": "learning"
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "name": "Telegram Design Request Automation_v1",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        112
+      ],
+      "name": "Telegram Trigger",
+      "id": "9964b8d7-1cda-4604-aa5e-979144d714c3",
+      "webhookId": "10450e77-ae39-409f-a5d4-40c335d663aa",
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const text = $json.message.text;\nreturn [{ request: text }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -256,
+        112
+      ],
+      "name": "Extract Request",
+      "id": "46ad7ea4-8603-4e16-8f38-d5655b941649"
+    },
+    {
+      "parameters": {
+        "resource": "chat",
+        "model": "o4-mini",
+        "prompt": {
+          "messages": [
+            {
+              "content": "=Write short high-conversion promotional copy for this request: {{$json.request}} Return maximum 2 lines."
+            }
+          ]
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.openAi",
+      "typeVersion": 1,
+      "position": [
+        0,
+        112
+      ],
+      "name": "Generate Promo Copy",
+      "id": "c825fd50-55d8-4a69-bc75-c261ff2fa1eb",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "1056849949",
+        "binaryData": true,
+        "additionalFields": {
+          "caption": "=={{$node[\"Generate Promo Copy\"].json.message.content}}"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        496,
+        112
+      ],
+      "name": "Send Promo Poster",
+      "id": "6b92bdd1-7f53-42b9-ba21-4a60d6d5ba91",
+      "webhookId": "749d1194-614f-4dca-a7a8-7837c1070583",
+      "credentials": {
+        "telegramApi": {
+          "id": "44YQEevkH3UwKGEY",
+          "name": "Dude_AI"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "image",
+        "model": "dall-e-2",
+        "prompt": "=Create a professional promotional poster for:\n{{$node[\"Extract Request\"].json[\"request\"]}}\n\nInclude this headline:\n{{$node[\"Generate Promo Copy\"].json[\"output_text\"]}}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.1,
+      "position": [
+        224,
+        112
+      ],
+      "id": "b9da66e8-2f2f-460f-a1e1-8c9d2cfc3a27",
+      "name": "Generate Promo Image",
+      "credentials": {
+        "openAiApi": {
+          "id": "bRelpAdk0hzWSBMm",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Extract Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Request": {
+      "main": [
+        [
+          {
+            "node": "Generate Promo Copy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Promo Copy": {
+      "main": [
+        [
+          {
+            "node": "Generate Promo Image",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Promo Image": {
+      "main": [
+        [
+          {
+            "node": "Send Promo Poster",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "65844fce-1252-490d-a129-0142adedba63",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "rNKuhPnkGVS0gs7Y",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    }
+  ]
+}

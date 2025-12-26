@@ -1,0 +1,251 @@
+{
+  "name": "3. Design Request Automation_slack",
+  "nodes": [
+    {
+      "parameters": {
+        "trigger": [
+          "message"
+        ],
+        "channelId": {
+          "__rl": true,
+          "value": "C0A1XNVP5TQ",
+          "mode": "list",
+          "cachedResultName": "design"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.slackTrigger",
+      "typeVersion": 1,
+      "position": [
+        64,
+        112
+      ],
+      "id": "ae11da2b-afc7-4e65-bee9-aae19e7ecf11",
+      "name": "Slack Trigger - #design",
+      "webhookId": "a0117de9-5c3b-4713-b3ca-507c7a2d91ba",
+      "credentials": {
+        "slackApi": {
+          "id": "NLckEwPQkEmknBnt",
+          "name": "Slack – Support Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [ { json: { request_text: $json.event && $json.event.text ? $json.event.text : 'Design Request', request_user: $json.event && $json.event.user ? $json.event.user : '' } } ];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        112
+      ],
+      "id": "54b6dc80-832a-4245-b91b-6feea0f6c427",
+      "name": "Extract Request (JS)"
+    },
+    {
+      "parameters": {
+        "resource": "user",
+        "operation": "get"
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [
+        528,
+        112
+      ],
+      "id": "6334d0a3-be4a-4ffb-ac7f-b40b0dd7bc2c",
+      "name": "Slack - Get User Email",
+      "webhookId": "360e33a5-a373-443d-9e65-02e21d40e65e",
+      "credentials": {
+        "slackApi": {
+          "id": "NLckEwPQkEmknBnt",
+          "name": "Slack – Support Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "getAll",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "position": [
+        768,
+        112
+      ],
+      "id": "ace3ef29-6b62-4434-9ed8-60f4b2ea67aa",
+      "name": "Slack - Get All Files",
+      "webhookId": "f60028d3-6f7f-4b4d-b5d8-fc9b79de16c4",
+      "credentials": {
+        "slackApi": {
+          "id": "NLckEwPQkEmknBnt",
+          "name": "Slack – Support Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const videos = items.filter(i => i.json.mimetype && i.json.mimetype.startsWith('video'));\nif (!videos.length) { throw new Error('No video found'); }\nvideos.sort((a, b) => Number(b.json.created) - Number(a.json.created));\nreturn [videos[0]];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1024,
+        112
+      ],
+      "id": "3e8fe2f4-07f2-4a28-8fb3-54e09ff5d046",
+      "name": "Pick Latest Video (JS)"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.url_private_download }}",
+        "authentication": "headerAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        1264,
+        112
+      ],
+      "id": "3df2c58b-cf88-48f2-b68a-578342e9aeef",
+      "name": "Download Video (Binary)"
+    },
+    {
+      "parameters": {
+        "jsCode": "const email = $items('Slack - Get User Email')[0].json.profile.email;\nconst request = $items('Extract Request (JS)')[0].json.request_text;\nreturn [ { json: { to: email, subject: 'Design Request: ' + request, html: '<div style=\"font-family:Arial;font-size:14px;\"><p>Hi,</p><p>Your design request:</p><blockquote>' + request + '</blockquote><p>The latest design video is attached.</p><p>Design Automation</p></div>' } } ];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        112
+      ],
+      "id": "4f8f0569-1a39-4629-b5da-b18a446d5ec9",
+      "name": "Prepare Email Payload (JS)"
+    },
+    {
+      "parameters": {
+        "subject": "={{ $json.subject }}",
+        "message": "={{ $json.html }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2,
+      "position": [
+        1776,
+        112
+      ],
+      "id": "48afb50b-2dba-4a6c-8777-8ce53c49f2ac",
+      "name": "Send Email with Video",
+      "webhookId": "0de12906-ea98-48ab-9174-66225b46c9c8",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "L7gmhYNAYBG6285V",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Slack Trigger - #design": {
+      "main": [
+        [
+          {
+            "node": "Extract Request (JS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Request (JS)": {
+      "main": [
+        [
+          {
+            "node": "Slack - Get User Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack - Get User Email": {
+      "main": [
+        [
+          {
+            "node": "Slack - Get All Files",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slack - Get All Files": {
+      "main": [
+        [
+          {
+            "node": "Pick Latest Video (JS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pick Latest Video (JS)": {
+      "main": [
+        [
+          {
+            "node": "Download Video (Binary)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video (Binary)": {
+      "main": [
+        [
+          {
+            "node": "Prepare Email Payload (JS)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Email Payload (JS)": {
+      "main": [
+        [
+          {
+            "node": "Send Email with Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b4b5851e-5c4a-40bb-b954-8911ebeabaf3",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "05ccd12ae236661ced4607d3dac4c46751751064048f4a227ebf78372e726945"
+  },
+  "id": "hanogQyhQjCOV4AL",
+  "tags": [
+    {
+      "updatedAt": "2025-12-04T03:50:29.708Z",
+      "createdAt": "2025-12-04T03:50:29.708Z",
+      "id": "guOaeOeSnKGCkNQZ",
+      "name": "my_first_project"
+    }
+  ]
+}

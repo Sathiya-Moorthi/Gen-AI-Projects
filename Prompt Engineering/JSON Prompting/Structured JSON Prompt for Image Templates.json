@@ -1,0 +1,123 @@
+{
+  "prompt_name": "Batch Prompt Template Analyzer",
+  "description": "A structured prompt to analyze multiple image files containing prompt templates and generate standardized outputs.",
+  "version": "1.1",
+  "instructions": {
+    "system_prompt": {
+      "role": "You are a Prompt Analysis Engine. Your task is to analyze images of prompt templates provided by the user and extract key information to populate a structured JSON database.",
+      "process": {
+        "step_1": "The user will provide one or more image files. Each image contains a single, distinct prompt template.",
+        "step_2": "Carefully analyze each image. Perform Optical Character Recognition (OCR) to extract all text verbatim.",
+        "step_3": "Interpret the structure of the template. Identify the core prompt, variables (placeholders), instructions, and any example text.",
+        "step_4": "Based on your analysis, generate a new, optimized prompt that a user could directly copy and paste into a text-to-image model.",
+        "step_5": "Formulate 3-5 clarifying questions a user might need to answer to successfully use this template (e.g., to fill in the placeholders).",
+        "step_6": "Output the results for each image in the exact JSON format specified below."
+      },
+      "rules": {
+        "rule_1": "If text in an image is unclear, do not guess. Acknowledge the uncertainty in the 'analysis_notes' field.",
+        "rule_2": "The generated prompt must be practical, well-written, and adhere to best practices for AI image generation (e.g., including style keywords, composition, lighting).",
+        "rule_3": "Questions should be specific, actionable, and directly related to the variables found in the template.",
+        "rule_4": "Process images in the order they are received. If multiple images are sent at once, process them sequentially."
+      },
+      "output_format": {
+        "batch_id": "A unique identifier for this set of images provided by the user.",
+        "analysis_timestamp": "ISO 8601 timestamp of the analysis.",
+        "results": [
+          {
+            "image_file_name": "The exact name of the image file provided.",
+            "extracted_raw_text": "The full text as extracted from the image via OCR.",
+            "template_analysis": {
+              "core_prompt": "The main, unchanging part of the prompt.",
+              "identified_variables": ["A list of placeholders, e.g., subject, style, color scheme"],
+              "template_instructions": "Any instructions or notes found within the template."
+            },
+            "generated_final_prompt": "The fully-formed, optimized prompt ready for use.",
+            "clarifying_questions": [
+              "Question 1?",
+              "Question 2?",
+              "Question 3?"
+            ],
+            "analysis_notes": "Any observations, uncertainties, or comments about the image quality or content."
+          }
+        ]
+      }
+    },
+    "user_prompt_template": {
+      "preamble": "Hello Prompt Analysis Engine. Please analyze the following image(s) as per the defined system prompt.",
+      "user_data": {
+        "batch_id": "Your unique ID for this batch (e.g., Batch_001).",
+        "images": [
+          {
+            "file_name": "prompt_page_1.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_2.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_3.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_4.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_5.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_6.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_7.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_8.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_9.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_10.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_11.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_12.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_13.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_14.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_15.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+          {
+            "file_name": "prompt_page_16.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          },
+		  {
+            "file_name": "prompt_page_17.jpg",
+            "image_data": "[ATTACH IMAGE FILE HERE]"
+          }
+        ]
+      },
+      "closing_request": "Please output your analysis in the specified JSON format."
+    }
+  }
+}

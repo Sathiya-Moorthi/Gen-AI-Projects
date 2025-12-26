@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "template_name": "Batch Prompt Template Analysis and Transformation",
+    "version": "2.0",
+    "created_date": "2025-11-16",
+    "use_case": "Analyzing multiple images/documents containing prompt templates and transforming them into structured, usable formats"
+  },
+  
+  "task_definition": {
+    "primary_objective": "Analyze provided images/documents containing prompt templates and transform them into a specified output format",
+    "deliverable_type": "Structured prompt templates using RTCFR methodology (Role, Task, Context, Few-shots, Report/Tone)",
+    "total_items_to_process": 50,
+    "batch_processing": true
+  },
+  
+  "input_specifications": {
+    "input_type": "images",
+    "file_format": "JPG/PNG",
+    "number_of_files": 17,
+    "content_description": "Each image contains 1-5 prompt templates with template names, structure, and examples",
+    "file_naming_pattern": "prompt_page_X.jpg where X = 1 to 17",
+    "source_location": "Uploaded attachments in current conversation thread"
+  },
+  
+  "extraction_requirements": {
+    "ocr_needed": true,
+    "extract_elements": [
+      "Template number (1-50)",
+      "Template name/title",
+      "Template category (Basic, Persona-based, Few-shot, etc.)",
+      "Original template structure with placeholders",
+      "Example usage if provided",
+      "Instructions or notes"
+    ],
+    "preserve_structure": true,
+    "handle_unclear_text": "Acknowledge uncertainty in analysis notes rather than guessing"
+  },
+  
+  "transformation_methodology": {
+    "framework": "RTCFR Method",
+    "components": {
+      "R_Role": {
+        "description": "Define who the AI should become (expertise, perspective, authority)",
+        "requirements": [
+          "Specific professional title or expertise area",
+          "Years of experience (if relevant to credibility)",
+          "Specialized knowledge domain",
+          "Perspective or approach to bring"
+        ],
+        "example": "You are a senior software engineer with 15 years of experience in algorithm design and code documentation best practices."
+      },
+      "T_Task": {
+        "description": "Specify exactly what needs to be accomplished",
+        "requirements": [
+          "Clear action verb (write, create, analyze, solve, etc.)",
+          "Specific deliverable described",
+          "Scope and boundaries defined",
+          "Measurable output criteria"
+        ],
+        "example": "Write a Python function to calculate Fibonacci numbers that includes proper error handling, clear documentation, and efficient implementation."
+      },
+      "C_Context": {
+        "description": "Provide background, constraints, and situational information",
+        "requirements": [
+          "Why this task is needed",
+          "Who will use the output",
+          "Any constraints (time, budget, technical)",
+          "User's background or skill level",
+          "Specific goals or desired outcomes",
+          "Relevant situational details"
+        ],
+        "example": "I'm building a math education application for middle school students. The function will be used by other developers, so code quality and documentation are critical. Performance matters since it might be called frequently."
+      },
+      "F_FewShots": {
+        "description": "Provide examples showing desired patterns, quality, or format",
+        "requirements": [
+          "1-3 concrete examples showing good vs. bad",
+          "Pattern demonstrations",
+          "Format templates",
+          "Quality benchmarks",
+          "Common mistakes to avoid"
+        ],
+        "example_structure": "Good example: [show effective approach]\nPoor example: [show what to avoid]\nWhy the good example works: [explanation]"
+      },
+      "R_ReportTone": {
+        "description": "Specify output format, style, tone, and presentation requirements",
+        "requirements": [
+          "Tone (professional, casual, educational, etc.)",
+          "Format (essay, bullet points, table, code, etc.)",
+          "Length constraints (word count, number of items)",
+          "Audience appropriateness",
+          "Special formatting requirements",
+          "Citation or reference needs"
+        ],
+        "example": "Professional and well-documented. Include comprehensive docstring, inline comments, example usage. Use Google-style documentation format. Keep total function under 50 lines."
+      }
+    }
+  },
+  
+  "output_specifications": {
+    "output_format": "Markdown formatted text",
+    "structure": {
+      "main_sections": [
+        "Category header (## A. Basic Prompt Templates)",
+        "Template number and name (### 1. General Inquiry)",
+        "RTCFR formatted prompt in code block",
+        "Clear separation between templates"
+      ],
+      "template_structure": "Each template presented as complete, copy-paste ready RTCFR prompt inside markdown code block"
+    },
+    
+    "formatting_rules": {
+      "use_markdown_headers": true,
+      "header_hierarchy": "## for categories, ### for individual templates",
+      "code_blocks": "Use ``````text for prompt templates",
+      "line_breaks": "Clear visual separation between templates",
+      "numbering": "Sequential 1-50 matching original source"
+    },
+    
+    "quality_standards": {
+      "completeness": "All 50 templates must be included",
+      "accuracy": "Templates must reflect original intent from source images",
+      "usability": "Each prompt should be copy-paste ready without modification",
+      "consistency": "All prompts follow identical RTCFR structure",
+      "human_readability": "Written as if a professional prompt engineer created them",
+      "topic_selection": "Choose realistic, practical topics for examples (not generic placeholders)"
+    }
+  },
+  
+  "special_instructions": {
+    "iteration_requirement": "Provide complete output in ONE response - do not split into multiple messages",
+    "error_handling": "If image is unreadable, note it but continue processing remaining images",
+    "topic_selection_for_examples": [
+      "Use realistic, specific topics (e.g., 'photosynthesis' not '[topic]')",
+      "Choose topics that demonstrate the template's practical use",
+      "Vary topics across templates to show versatility",
+      "Make examples relevant to professional or educational contexts"
+    ],
+    "tone_of_prompts": "Write as professional prompt engineer would - natural, clear, human-sounding",
+    "avoid": [
+      "Generic placeholders like [INSERT HERE]",
+      "Overly academic or stiff language",
+      "Incomplete sections",
+      "Splitting output across multiple responses"
+    ]
+  },
+  
+  "success_criteria": {
+    "primary_metrics": [
+      "All 50 templates processed and delivered",
+      "Each template follows complete RTCFR structure",
+      "Prompts are copy-paste ready without edits",
+      "Output delivered in single iteration",
+      "Examples use realistic topics, not placeholders"
+    ],
+    "quality_checks": [
+      "Role clearly defines expertise and perspective",
+      "Task is specific and actionable",
+      "Context provides sufficient background",
+      "Few-shots include both good and bad examples",
+      "Report/Tone specifies format and style clearly"
+    ],
+    "user_satisfaction": "User can immediately copy any prompt and use it successfully with an AI system"
+  },
+  
+  "example_template_structure": {
+    "demonstration": "### 1. Template Name\n\n**PROMPT:**\n``````"
+  },
+  
+  "reusability_instructions": {
+    "how_to_use_this_template": [
+      "1. Copy this entire JSON structure",
+      "2. Modify the 'input_specifications' section with your specific files/content",
+      "3. Adjust 'task_definition' for your particular use case",
+      "4. Update 'output_specifications' if you need different formatting",
+      "5. Paste into AI chat with your files attached",
+      "6. AI will process everything in one iteration following this exact structure"
+    ],
+    
+    "customization_points": {
+      "input_type": "Change to 'PDFs', 'text files', 'URLs', etc.",
+      "number_of_items": "Adjust total_items_to_process",
+      "framework": "Can change from RTCFR to CREATE, PREP, or custom framework",
+      "output_format": "Change to JSON, CSV, table, slides, etc.",
+      "quality_standards": "Add domain-specific requirements"
+    }
+  },
+  
+  "execution_command": {
+    "instruction_to_ai": "Process all attached images according to this JSON specification. Extract prompt templates from images, transform each into RTCFR format with realistic example topics, and deliver all 50 templates in a single comprehensive response formatted in Markdown. Ensure each prompt is complete, professional, and immediately usable without further editing."
+  }
+}

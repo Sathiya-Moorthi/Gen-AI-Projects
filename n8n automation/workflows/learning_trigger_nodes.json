@@ -1,0 +1,82 @@
+{
+  "name": "learning_trigger_nodes",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "New Employee Deatils",
+        "formDescription": "Getting the new employee's details",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Mobile number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Feedback",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "buttonLabel": "Submit"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cc3d3ff9-dc88-4222-806a-a367e7099c74",
+      "name": "On form submission",
+      "webhookId": "a3357b21-0e03-4b0a-acef-24839a186b81",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {
+          "responseMode": "lastNode"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        16,
+        208
+      ],
+      "id": "513c6fca-8ecd-446b-a592-0f155750df57",
+      "name": "When chat message received",
+      "webhookId": "baddbf32-04d3-4367-a503-872a3bc528fe",
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c606022e-2a00-4499-916a-1a90bbbf7269",
+  "meta": {
+    "instanceId": "56f7db8ac0e93e8ed84362efdb878170514b217d383bece64b5946f822544eff"
+  },
+  "id": "OYbvoXnYOEgQFxdr",
+  "tags": [
+    {
+      "updatedAt": "2025-12-02T14:53:26.042Z",
+      "createdAt": "2025-12-02T14:53:26.042Z",
+      "id": "NY7D5NSs8KNMhOsQ",
+      "name": "learning"
+    }
+  ]
+}

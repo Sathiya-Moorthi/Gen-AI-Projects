@@ -1,0 +1,7 @@
+# Python/LangChain
+__pycache__/
+*.py[cod]
+.env
+venv/
+output files/
+*.log

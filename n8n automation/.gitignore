@@ -1,0 +1,6 @@
+# General
+__pycache__/
+*.py[cod]
+.env
+output files/
+*.tmp
