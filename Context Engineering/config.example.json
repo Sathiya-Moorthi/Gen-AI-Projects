@@ -1,0 +1,13 @@
+{
+  "api_key": "your_api_key",
+  "model": "gpt-4o-mini",
+  "max_tokens": 4096,
+  "temperature": 0.7,
+  "context_window": {
+    "gpt-3.5-turbo": 4096,
+    "gpt-3.5-turbo-16k": 16384,
+    "gpt-4": 8192,
+    "gpt-4-32k": 32768,
+    "gpt-4-turbo": 128000
+  }
+}

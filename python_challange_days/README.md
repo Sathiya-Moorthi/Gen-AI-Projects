@@ -1,4 +1,4 @@
-# 15 Days Python Challenge
+# Python Challenge
 
 Code and solutions for a 15-day Python coding challenge.
 
