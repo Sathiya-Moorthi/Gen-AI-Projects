@@ -152,7 +152,7 @@
     },
     {
       "parameters": {
-        "url": "=https://api.telegram.org/bot8250204125:AAF_citwgufqJWYSUOHgZApRnJcU2YR-cko/getUpdates",
+        "url": "=https://api.telegram.org/bot<token_id>/getUpdates",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
