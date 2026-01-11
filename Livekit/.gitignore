@@ -1,5 +1,60 @@
-# Secrets
+# ============================
+# Environment & Secrets
+# ============================
 .env
+.env.local
+.env.*.local
 token.txt
+*.pem
+secrets.json
+
+# ============================
+# Python
+# ============================
 __pycache__/
 *.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+eggs/
+*.egg-info/
+*.egg
+
+# ============================
+# Virtual Environments
+# ============================
+venv/
+.venv/
+ENV/
+env/
+
+# ============================
+# IDE & Editors
+# ============================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================
+# OS Files
+# ============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================
+# Logs
+# ============================
+*.log
+logs/
+
+# ============================
+# Testing
+# ============================
+.pytest_cache/
+.coverage
+htmlcov/
