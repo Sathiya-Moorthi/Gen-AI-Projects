@@ -1,0 +1,21 @@
+# Vector Database Files (Generated)
+My_First_Vector_DB/
+my_local_chroma_db/
+
+# FAISS index files
+*.faiss
+*.pkl
+
+# ChromaDB files
+*.sqlite3
+chroma-*/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Environment
+.env
+
+# Python cache
+__pycache__/
+*.pyc
