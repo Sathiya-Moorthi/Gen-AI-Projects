@@ -1,0 +1,7 @@
+# Hugging Face Dependencies
+transformers>=4.20.0
+torch>=2.0.0
+datasets>=2.0.0
+accelerate>=0.20.0
+sentencepiece>=0.1.96
+jupyter>=1.0.0

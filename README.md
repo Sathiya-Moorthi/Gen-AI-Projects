@@ -10,25 +10,26 @@ A comprehensive collection of projects, scripts, and experiments related to **Ge
 
 | Directory | Description |
 |-----------|-------------|
-| [AutoGen](./AutoGen/) | Agents and multi-agent workflows using Microsoft AutoGen |
+| [AutoGen](./AutoGen/) | Multi-agent systems using Microsoft AutoGen framework |
 | [Context Engineering](./Context%20Engineering/) | Structured context engineering with AutoGen |
-| [Flask_API](./Flask_API/) | API implementations and simple apps using Flask |
-| [GraphRAG](./GraphRAG/) | Graph-based Retrieval-Augmented Generation experiments |
-| [Hugging_Face](./Hugging_Face/) | Projects leveraging the Hugging Face ecosystem |
-| [KT](./KT/) | Knowledge Transfer materials (includes ESMS) |
+| [Flask_API](./Flask_API/) | RESTful API implementations using Flask |
+| [github_automation](./github_automation/) | Scripts for automating GitHub/Git interactions |
+| [GraphRAG](./GraphRAG/) | Graph-based Retrieval-Augmented Generation with Neo4j |
+| [Hugging_Face](./Hugging_Face/) | NLP projects using Transformers and HF ecosystem |
 | [Knowledge Graph RAG](./Knowledge%20Graph%20RAG/) | RAG implementation combined with Knowledge Graphs |
+| [KT](./KT/) | Knowledge Transfer materials (includes ESMS) |
 | [LangChain](./LangChain/) | Workflows and applications built using LangChain |
-| [Livekit](./Livekit/) | Voice and video agent experiments |
-| [Prompt Engineering](./Prompt%20Engineering/) | Collection of prompts for various roles and tasks |
-| [Python](./Python/) | Miscellaneous Python scripts and challenges |
-| [RAG](./RAG/) | Retrieval-Augmented Generation mechanisms and fallbacks |
-| [RPA_Automation](./RPA_Automation/) | Automation scripts using Playwright, PyAutoGUI, Selenium |
-| [Streamlit](./Streamlit/) | Interactive web applications |
-| [UI Automation](./UI%20Automation/) | Desktop automation tools |
-| [github_automation](./github_automation/) | Scripts for automating GitHub interactions |
-| [n8n automation](./n8n%20automation/) | Workflows and scripts for n8n automations |
+| [Livekit](./Livekit/) | Real-time voice and video agent experiments |
+| [MCP](./MCP/) | Model Context Protocol servers and integrations |
+| [n8n automation](./n8n%20automation/) | Workflow automation using n8n |
+| [Prompt Engineering](./Prompt%20Engineering/) | Curated prompts, templates, and role-based systems |
+| [Python](./Python/) | Miscellaneous Python scripts and utilities |
 | [python_challange_days](./python_challange_days/) | Solutions for a 15-day Python coding challenge |
-| [resume_comparison_tool](./resume_comparison_tool/) | Tool to compare resumes against job descriptions |
+| [RAG](./RAG/) | Retrieval-Augmented Generation mechanisms |
+| [resume_comparison_tool](./resume_comparison_tool/) | AI-powered resume vs job description comparison |
+| [RPA_Automation](./RPA_Automation/) | Web/desktop automation (Playwright, Selenium, PyAutoGUI) |
+| [Streamlit](./Streamlit/) | Interactive web applications and dashboards |
+| [UI Automation](./UI%20Automation/) | Desktop UI automation tools |
 
 ## 🚀 Getting Started
 
@@ -76,6 +77,10 @@ A comprehensive collection of projects, scripts, and experiments related to **Ge
 ## 🤝 Contributing
 
 Contributions are welcome! Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+## 🔒 Security
+
+For security concerns, please review our [Security Policy](./SECURITY.md) for vulnerability reporting guidelines.
 
 ## 📄 License
 
