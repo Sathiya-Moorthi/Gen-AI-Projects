@@ -102,7 +102,3 @@ headless = true
 ```bash
 streamlit run scripts/your_app.py --server.address 0.0.0.0
 ```
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

@@ -106,7 +106,3 @@ Detailed guides available in the `documentation/` folder:
 - User Manual
 - API Documentation
 - Integration Guide
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

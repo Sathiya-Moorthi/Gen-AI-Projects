@@ -100,7 +100,3 @@ Default configuration runs in development mode. For production:
 ```python
 app.run(host='0.0.0.0', port=5000, debug=False)
 ```
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

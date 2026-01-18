@@ -82,7 +82,3 @@ See `.env.example` for required environment variables:
 ## Getting Started
 
 See [RAG_Battle/README.md](./RAG_Battle/README.md) for detailed setup instructions.
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

@@ -92,7 +92,3 @@ python your_script.py
 - Never hardcode credentials in scripts
 - Use environment variables for sensitive data
 - Be mindful of rate limiting when automating web interactions
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

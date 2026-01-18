@@ -100,14 +100,6 @@ Recommended order for newcomers to LangChain:
 - **Vector Stores**: FAISS, ChromaDB
 - **Embeddings**: OpenAI, HuggingFace
 
-## 🤝 Contributing
-
-Contributions are welcome! Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - [LangChain](https://langchain.com/) for the amazing framework

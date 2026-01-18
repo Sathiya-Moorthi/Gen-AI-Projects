@@ -89,7 +89,3 @@ Create `OAI_CONFIG_LIST` file:
     }
 ]
 ```
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

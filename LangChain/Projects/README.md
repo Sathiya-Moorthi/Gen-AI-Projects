@@ -60,10 +60,6 @@ A curated collection of **AI-powered applications** built with [LangChain](https
 - **AI Provider**: [OpenAI](https://openai.com/) (GPT-4o-mini)
 - **Research API**: [Tavily](https://tavily.com/) (optional)
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
 ---
 
 **Built with ❤️ using LangChain & Streamlit**

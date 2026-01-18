@@ -112,7 +112,3 @@ Create credentials in n8n for the following services (as needed):
 - Use environment variables for sensitive data
 - Set up error handling nodes
 - Monitor execution logs regularly
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

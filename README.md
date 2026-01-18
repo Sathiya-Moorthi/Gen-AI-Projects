@@ -1,8 +1,6 @@
 # Gen AI Projects & Automation
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](./CONTRIBUTING.md)
 
 A comprehensive collection of projects, scripts, and experiments related to **Generative AI**, **Machine Learning**, and **Automation**.
 
@@ -73,18 +71,6 @@ A comprehensive collection of projects, scripts, and experiments related to **Ge
 - **Playwright / Selenium** - Web browser automation
 - **PyAutoGUI** - Cross-platform GUI automation
 - **LiveKit** - Real-time voice and video integration
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read the [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
-
-## 🔒 Security
-
-For security concerns, please review our [Security Policy](./SECURITY.md) for vulnerability reporting guidelines.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ---
 

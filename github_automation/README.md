@@ -96,7 +96,3 @@ DEFAULT_BRANCH=main
 2. Use meaningful commit messages
 3. Test scripts on non-critical repositories first
 4. Set up branch protection rules on important branches
-
-## License
-
-This project is part of [Gen-AI-Projects](../README.md) and is licensed under the MIT License.

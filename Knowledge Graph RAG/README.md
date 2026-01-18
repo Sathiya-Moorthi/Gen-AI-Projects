@@ -402,10 +402,6 @@ This demo uses:
 - [Neo4j](https://neo4j.com/) - Graph database
 - [OpenAI](https://openai.com/) - LLM and embeddings
 
-## License
-
-This demo is provided as-is for educational purposes.
-
 ## Support
 
 For issues or questions:

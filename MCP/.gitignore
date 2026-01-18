@@ -74,3 +74,8 @@ Thumbs.db
 
 # Project specific
 *.log
+<<<<<<< HEAD
+=======
+
+*.pyc
+>>>>>>> 8158e68 (Automated update)

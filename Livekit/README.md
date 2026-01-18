@@ -125,10 +125,6 @@ Modify the initial greeting in the `entrypoint` function:
 await session.say("Your custom greeting here", allow_interruptions=True)
 ```
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - [LiveKit](https://livekit.io/) for the real-time communication framework
