@@ -1,3 +1,70 @@
+<<<<<<< HEAD
+# ============================
+# Environment & Secrets
+# ============================
+.env
+.env.local
+.env.*.local
+*.pem
+secrets.json
+
+# ============================
+# Python
+# ============================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+eggs/
+*.egg-info/
+*.egg
+
+# ============================
+# Virtual Environments
+# ============================
+venv/
+.venv/
+ENV/
+env/
+
+# ============================
+# IDE & Editors
+# ============================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ============================
+# OS Files
+# ============================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================
+# Logs & Temp
+# ============================
+*.log
+logs/
+*.tmp
+
+# ============================
+# Testing
+# ============================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ============================
+# Streamlit
+# ============================
+.streamlit/secrets.toml
+=======
 .env
 __pycache__/
 *.pyc
@@ -6,3 +73,4 @@ __pycache__/
 venv/
 .vscode/
 .idea/
+>>>>>>> c48496b (Automated update)

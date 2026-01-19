@@ -1,0 +1,10 @@
+sku,name,category,price,quantity,weight_kg,is_active,tags
+ABC-001,Wireless Mouse,Electronics,29.99,150,0.12,true,"electronics,computer,wireless"
+ABC-002,USB Keyboard,Electronics,$49.99,75,0.45,true,"electronics,computer,keyboard"
+ABC-003,Monitor Stand,Furniture,89.00,30,2.5,true,"furniture,desk,office"
+XYZ-100,Desk Lamp,Lighting,34.95,0,0.8,true,"lighting,office,led"
+XYZ-101,Office Chair,Furniture,"$299.00",25,15.0,true,"furniture,office,ergonomic"
+DEF-200,Notebook Set,Stationery,12.50,500,0.3,true,"stationery,paper,office"
+DEF-201,Pen Pack,Stationery,8.99,1000,0.1,true,"stationery,writing"
+GHI-300,Water Bottle,Kitchen,15.00,200,0.2,false,""
+GHI-301,Coffee Mug,Kitchen,12.00,150,0.35,true,"kitchen,drinkware,ceramic"

@@ -21,6 +21,7 @@ A comprehensive collection of projects, scripts, and experiments related to **Ge
 | [MCP](./MCP/) | Model Context Protocol servers and integrations |
 | [n8n automation](./n8n%20automation/) | Workflow automation using n8n |
 | [Prompt Engineering](./Prompt%20Engineering/) | Curated prompts, templates, and role-based systems |
+| [Pydantic](./Pydantic/) | Hands-on Pydantic v2 mastery for data validation and settings management |
 | [Python](./Python/) | Miscellaneous Python scripts and utilities |
 | [python_challange_days](./python_challange_days/) | Solutions for a 15-day Python coding challenge |
 | [RAG](./RAG/) | Retrieval-Augmented Generation mechanisms |
@@ -56,6 +57,7 @@ A comprehensive collection of projects, scripts, and experiments related to **Ge
 
 ### 🤖 AI & LLM Frameworks
 - **Python** - Core programming language
+- **Pydantic** - Data validation and settings management using Python type hints
 - **LangChain** - Building context-aware reasoning Generative AI applications
 - **Microsoft AutoGen** - Enabling multi-agent orchestration
 - **GraphRAG** - Advanced retrieval using knowledge graphs

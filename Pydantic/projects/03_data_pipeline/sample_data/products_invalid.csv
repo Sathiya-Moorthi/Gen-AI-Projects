@@ -1,0 +1,10 @@
+sku,name,category,price,quantity,weight_kg,is_active,tags
+,Missing SKU,Electronics,29.99,150,0.12,true,""
+invalid sku!,Invalid SKU Format,Electronics,29.99,150,0.12,true,""
+ABC-003,,Furniture,89.00,30,2.5,true,""
+ABC-004,Valid Product,,-10.00,30,2.5,true,""
+ABC-005,Valid Product,Electronics,not_a_price,30,2.5,true,""
+ABC-006,Valid Product,Electronics,29.99,-5,2.5,true,""
+ABC-007,Valid Product,Electronics,29.99,30,2000,true,""
+ABC-008,Valid Product,Electronics,29.99,30,2.5,invalid_bool,""
+ABC-009,This name is way too long and exceeds the maximum allowed character limit for product names in our system which should trigger a validation error because we set a max length constraint,Electronics,29.99,30,2.5,true,""
