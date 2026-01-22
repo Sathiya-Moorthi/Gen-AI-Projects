@@ -8,7 +8,7 @@ A comprehensive collection of projects, scripts, and experiments related to **Ge
 
 | Directory | Description |
 |-----------|-------------|
-| [AutoGen](./AutoGen/) | Multi-agent systems using Microsoft AutoGen framework |
+| [AutoGen](./AutoGen/) | Multi-agent systems: AI Interview Platform (7 agents, FastAPI+React), Content Generation Workflow (4 agents) |
 | [Context Engineering](./Context%20Engineering/) | Structured context engineering with AutoGen |
 | [Flask_API](./Flask_API/) | RESTful API implementations using Flask |
 | [github_automation](./github_automation/) | Scripts for automating GitHub/Git interactions |

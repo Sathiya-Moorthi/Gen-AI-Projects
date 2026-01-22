@@ -1,0 +1,179 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.header p {
+  opacity: 0.9;
+  font-size: 1.1rem;
+}
+
+.main {
+  flex: 1;
+  padding: 40px 20px;
+}
+
+.setup-container {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+  color: var(--gray-900);
+}
+
+.card p {
+  color: var(--gray-500);
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.start-card {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.start-card h2 {
+  font-size: 1.75rem;
+}
+
+.btn-large {
+  padding: 14px 32px;
+  font-size: 16px;
+}
+
+.file-name {
+  color: var(--success);
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.analysis-card {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border: 1px solid #bae6fd;
+}
+
+.analysis-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.analysis-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.analysis-item .label {
+  font-weight: 600;
+  color: var(--gray-700);
+  font-size: 0.9rem;
+}
+
+.analysis-item ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.analysis-item li {
+  padding: 4px 0;
+  color: var(--gray-700);
+  font-size: 0.9rem;
+}
+
+.analysis-item li::before {
+  content: '•';
+  color: var(--primary);
+  margin-right: 8px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge-junior {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.badge-mid {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.badge-senior {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.action-card {
+  text-align: center;
+  padding: 32px;
+}
+
+.hint {
+  margin-top: 12px;
+  font-size: 0.85rem;
+}
+
+.error-message {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--gray-500);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 1.75rem;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
