@@ -26,6 +26,7 @@ AutoGen/
 A portfolio-grade mock technical interview platform powered by **7 specialized AutoGen agents** and GPT-4o. Features resume analysis, adaptive questioning, real-time scoring, and comprehensive feedback reports.
 
 **Tech Stack:** FastAPI, React, WebSockets, FAISS, SQLAlchemy
+
 **Key Features:**
 - Automatic seniority detection from resume
 - Adaptive theory and system design questions
@@ -38,6 +39,7 @@ A portfolio-grade mock technical interview platform powered by **7 specialized A
 Publication-ready content generation with **4 sequential agents** (Research → Writer → SEO → Scorer). Integrates SERP API for real-time research and enforces strict quality thresholds.
 
 **Tech Stack:** Flask, Streamlit, AutoGen, SERP API
+
 **Key Features:**
 - Real-time research integration
 - SEO optimization (score ≥ 80)
