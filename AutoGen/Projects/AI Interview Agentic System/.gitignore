@@ -76,3 +76,4 @@ CLAUDE.md
 github.md
 GITHUB_READINESS_REPORT.md
 CHANGELOG.md
+*.pyc
